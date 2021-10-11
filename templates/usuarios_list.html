@@ -1,0 +1,90 @@
+{% extends "index.html" %}
+
+
+{% block title %} Usuarios {% endblock title %}
+
+{% block style %}
+    <link rel="stylesheet" href="../static/style/usuario_list.css" media="screen">
+{% endblock style %}
+
+{% block content %}
+    <section class="u-clearfix u-section-1" id="sec-7481">
+      <div class="u-align-left u-clearfix u-sheet u-valign-top u-sheet-1">
+        <div class="u-clearfix u-expanded-width u-layout-wrap u-layout-wrap-1">
+          <div class="u-layout">
+            <div class="u-layout-col">
+              <div class="u-size-30">
+                <div class="u-layout-col">
+                  <div class="u-container-style u-layout-cell u-size-60 u-layout-cell-1">
+                    <div class="u-container-layout u-valign-top u-container-layout-1">
+                      <div class="u-image u-image-circle u-preserve-proportions u-image-1" alt="" data-image-width="512" data-image-height="512"></div>
+                      <p class="u-small-text u-text u-text-variant u-text-1">BIENVENIDO</p>
+                      <p class="u-small-text u-text u-text-variant u-text-2">Nombre usuario</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="u-size-30">
+                <div class="u-layout-row">
+                  <div class="u-container-style u-layout-cell u-size-13 u-layout-cell-2">
+                    <div class="u-container-layout u-container-layout-2">
+                      <ul class="u-custom-list u-text u-text-default u-text-3">
+                        <li>
+                          <div class="u-list-icon">
+                            <div xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xml:space="preserve" class="u-svg-content">➤</div>
+                          </div>Menú
+                        </li>
+                        <li>
+                          <div class="u-list-icon">
+                            <div xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xml:space="preserve" class="u-svg-content">➤</div>
+                          </div>Usuarios
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="u-container-style u-layout-cell u-size-47 u-layout-cell-3">
+                    <div class="u-container-layout u-valign-top u-container-layout-3">
+                      <h3 class="u-text u-text-default u-text-4">Usuarios</h3>
+                      <div class="u-expanded-width u-table u-table-responsive u-table-1">
+                        <table class="u-table-entity">
+                          <colgroup>
+                            <col width="20%">
+                            <col width="20%">
+                            <col width="20%">
+                            <col width="19.1%">
+                            <col width="20.9%">
+                          </colgroup>
+                          <thead class="u-align-center u-palette-5-dark-2 u-table-header u-table-header-1">
+                            <tr style="height: 27px;">
+                              <th class="u-border-1 u-border-grey-dark-1 u-table-cell">Nombre</th>
+                              <th class="u-border-1 u-border-grey-dark-1 u-table-cell">Email</th>
+                              <th class="u-border-1 u-border-grey-dark-1 u-table-cell">Bebida favorita</th>
+                              <th class="u-border-1 u-border-grey-dark-1 u-table-cell">Editar</th>
+                              <th class="u-border-1 u-border-grey-dark-1 u-table-cell">Eliminar</th>
+                            </tr>
+                          </thead>
+                          <tbody class="u-table-body">
+                            <tr style="height: 46px;">
+                              <td class="u-border-1 u-border-grey-dark-1 u-table-cell">Juan perez</td>
+                              <td class="u-border-1 u-border-grey-dark-1 u-table-cell">juan@mail.com</td>
+                              <td class="u-border-1 u-border-grey-dark-1 u-table-cell">Margarita</td>
+                              <td class="u-border-1 u-border-grey-dark-1 u-table-cell">
+                                <a class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-1 u-palette-4-dark-1 u-radius-24 u-btn-1" href="https://nicepage.com">Editar</a>
+                              </td>
+                              <td class="u-border-1 u-border-grey-dark-1 u-table-cell">
+                                <a class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-1 u-palette-2-base u-radius-20 u-btn-2" href="https://nicepage.com">Eliminar</a>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+{% endblock content %}
