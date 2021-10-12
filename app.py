@@ -14,9 +14,17 @@ def index():
 def about():
     return render_template('Acerca-de.html')
 
+@app.route('/bebidas')
+def getBebidas():
+    return render_template('bebidas_list.html')
+
 @app.route('/contacto')
 def contacto():
     return render_template('contacto.html')
+
+@app.route('/detalle_plato')
+def detalle_plato():
+    return render_template('detalle_plato.html')
 
 @app.route('/register')
 def register():
@@ -30,11 +38,17 @@ def login():
 def getMenu():
     return render_template('menu_list.html')
 
-@app.route('/bebidas')
-def getBebidas():
-    return render_template('bebidas_list.html')
+@app.route('/update_user')
+def update_user():
+    return render_template('usuario_update_form.html')
 
+@app.route('/update_bebida')
+def update_bebida():
+    return render_template('bebida_update_form.html')
 
+@app.route('/usuarios')
+def getUsuarios():
+    return render_template('usuarios_list.html')
 
 
 if __name__ =='__main__':
