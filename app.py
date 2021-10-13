@@ -50,6 +50,17 @@ def update_bebida():
 def getUsuarios():
     return render_template('usuarios_list.html')
 
+@app.route('/busqueda', methods=["GET"])
+def busqueda():
+    return render_template('busqueda.html')
+
+@app.route('/favoritos', methods=["GET"])
+def favoritos():
+    return render_template('favoritos.html')
+
+@app.route('/compra', methods=["GET"])
+def compra():
+    return render_template('compra.html')
 
 if __name__ =='__main__':
     app.run(debug=True)
