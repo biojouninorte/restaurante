@@ -87,6 +87,7 @@
 </li><li class="u-nav-item"><a class="u-active-palette-1-base u-border-active-palette-1-base u-border-hover-palette-1-light-1 u-button-style u-hover-palette-1-light-1 u-nav-link u-text-active-white u-text-grey-90 u-text-hover-white" href="{{ url_for('contacto') }}" style="padding: 10px 20px;">contacto</a>
 </li><li class="u-nav-item"><a class="u-active-palette-1-base u-border-active-palette-1-base u-border-hover-palette-1-light-1 u-button-style u-hover-palette-1-light-1 u-nav-link u-text-active-white u-text-grey-90 u-text-hover-white" href="{{ url_for('register') }}" style="padding: 10px 20px;">registro</a>
 </li><li class="u-nav-item"><a class="u-active-palette-1-base u-border-active-palette-1-base u-border-hover-palette-1-light-1 u-button-style u-hover-palette-1-light-1 u-nav-link u-text-active-white u-text-grey-90 u-text-hover-white" href="{{ url_for('login') }}" style="padding: 10px 20px;">Iniciar sesión</a>
+</li><li class="u-nav-item"><a class="u-active-palette-1-base u-border-active-palette-1-base u-border-hover-palette-1-light-1 u-button-style u-hover-palette-1-light-1 u-nav-link u-text-active-white u-text-grey-90 u-text-hover-white" href="{{ url_for('getBebidas') }}" style="padding: 10px 20px;">Dashboard</a>
 </li></ul>
               </div>
               <div class="u-custom-menu u-nav-container-collapse">
@@ -116,24 +117,24 @@
     <section class="u-align-center u-clearfix u-grey-5 u-section-1" id="carousel_f940">
       <div class="u-clearfix u-sheet u-sheet-1">
         <h6 class="u-text u-text-default u-text-1">Nuestro menú</h6>
-        <a
-                          class="u-button-style u-nav-link"
+        
+        <a class="u-button-style u-nav-link"
                           href="{{ url_for('getMenu') }}"
                           style="padding: 10px 20px"
-                          >Ver menú</a
-                        >
+                          >Ver menú</a>
+
         <h2 class="u-custom-font u-font-playfair-display u-text u-text-default u-text-2">Algunas de nuestras bebidas</h2>
         <div class="u-list u-list-1">
           <div class="u-repeater u-repeater-1">
             <div class="u-align-center u-container-style u-list-item u-repeater-item">
               <div class="u-container-layout u-similar-container u-valign-bottom u-container-layout-1">
-                <h6 class="u-text u-text-default u-text-3">PEAR SALAD / $11</h6>
+                <h6 class="u-text u-text-default u-text-3">Margarita / COP 30.000</h6>
                 <p class="u-text u-text-4">Reid’s Orchard Pears / Bitter Greens / Granola / Big Firefly / Farms Black and Blue / Pine Nut Vinaigrette</p>
               </div>
             </div>
             <div class="u-align-center u-container-style u-list-item u-repeater-item">
               <div class="u-container-layout u-similar-container u-valign-bottom u-container-layout-2">
-                <h6 class="u-text u-text-default u-text-5">BRODETTO DI PESCE / $9</h6>
+                <h6 class="u-text u-text-default u-text-5">Vino tinto / COP 50.000</h6>
                 <p class="u-text u-text-6">Adriatic Seafood Soup / Clams / Prawns  / Livornese / Langoustine Scallop / Celery / Olive</p>
               </div>
             </div>
