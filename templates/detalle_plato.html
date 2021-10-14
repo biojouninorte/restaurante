@@ -1,6 +1,9 @@
 {% extends "index.html" %}
 
 
+{% extends "index.html" %}
+
+
 {% block title %} Detalle bebida {% endblock title %}
 
 {% block style %}
@@ -20,7 +23,7 @@
                     <br>According to a study conducted by the University of Florida, the brain releases heroin-like chemicals called endogenous opioids when an individual indulges on sweet, salty or fatty foods.&nbsp;
                   </p>
                   <h5 class="u-align-center u-text u-text-3">30.0000 COP</h5>
-                  <a href="https://nicepage.me" class="u-active-none u-align-left u-border-2 u-border-black u-btn u-btn-rectangle u-button-style u-hover-none u-none u-btn-1">reALIZAR PEDIDO</a>
+                  <a href="{{ url_for('compra') }}" class="u-active-none u-align-left u-border-2 u-border-black u-btn u-btn-rectangle u-button-style u-hover-none u-none u-btn-1">REALIZAR PEDIDO</a>
                 </div>
               </div>
               <div class="u-align-left u-container-style u-image u-layout-cell u-left-cell u-size-30 u-image-1" data-image-width="1200" data-image-height="650">
