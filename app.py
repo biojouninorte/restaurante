@@ -1,15 +1,17 @@
 import os
 from flask import Flask, request, render_template, flash
 
+inicio_sesion = ""
+usuario = ""
 
 app = Flask(__name__)
 app.secret_key=os.urandom(24)
 
 
-@app.route('/', methods=["GET"])
+@app.route('/', methods=["GET" ])
 def index():
     return render_template('index.html')
-
+    
 @app.route('/about', methods=["GET"])
 def about():
     return render_template('Acerca-de.html')
@@ -40,11 +42,17 @@ def getMenu():
 
 @app.route('/update_user', methods=["GET","POST"])
 def update_user():
-    return render_template('usuario_update_form.html')
+    if inicio_sesion == True and usuario == "admin" :
+        return render_template('usuario_update_form.html')
+    else:
+        return render_template('login.html')
 
 @app.route('/update_bebida', methods=["GET","POST"])
 def update_bebida():
-    return render_template('bebida_update_form.html')
+    if inicio_sesion == True and usuario == "admin" :
+        return render_template('bebida_update_form.html')
+    else:
+        return render_template('login.html')
 
 @app.route('/usuarios', methods=["GET"])
 def getUsuarios():
@@ -54,13 +62,19 @@ def getUsuarios():
 def busqueda():
     return render_template('busqueda.html')
 
-@app.route('/favoritos', methods=["GET"])
+@app.route('/favoritos', methods=["GET", "POST"])
 def favoritos():
-    return render_template('favoritos.html')
+    if inicio_sesion == True:
+        return render_template('favoritos.html')
+    else:
+        return render_template('login.html')
 
 @app.route('/compra', methods=["GET"])
 def compra():
-    return render_template('compra.html')
+    if inicio_sesion == True :
+        return render_template('compra')
+    else:
+        return render_template('login.html')
 
 if __name__ =='__main__':
     app.run(debug=True)
