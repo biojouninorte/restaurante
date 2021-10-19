@@ -2,6 +2,7 @@ function validar_formulario(){
     let username = document.formRegistro.username;
     let email = document.formRegistro.email;
     let password = document.formRegistro.password;
+    let password2 = document.formRegistro.password2;
 
     let username_len = username.value.length;
 
@@ -21,6 +22,11 @@ function validar_formulario(){
     let pass_len = password.value.length;
     if( pass_len == 0 || pass_len < 8){
         alert("Debes ingresar un password con más de 8 caracteres");
+        return false;
+    }
+
+    if ( password != password2){
+        alert("El password no coincide, el password debe ser igual en ambos campos!")
         return false;
     }
     
