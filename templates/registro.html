@@ -24,7 +24,7 @@
                   <h3 class="u-align-center-lg u-align-center-md u-align-center-xl u-text u-text-default u-text-1">Formulario de registro</h3>
                   <div class="u-expanded-width-xs u-form u-login-control u-form-1">
 
-                    <form method="POST" source="custom" class="u-clearfix u-form-custom-backend u-form-spacing-15 u-form-vertical u-inner-form" name="formRegistro" style="padding: 0px;" onSubmit="validar_formulario();">
+                    <form method="POST" action="{{url_for('register')}}" source="custom" class="u-clearfix u-form-custom-backend u-form-spacing-15 u-form-vertical u-inner-form" name="formRegistro" style="padding: 0px;" onSubmit="validar_formulario();">
                       <div class="u-form-group u-form-name">
                         <label for="nombre" class="u-form-control-hidden u-label"></label>
                         <input type="text" placeholder="Nombres" name="nombre" class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle">
@@ -36,6 +36,10 @@
                       <div class="u-form-group u-form-group-3">
                         <label for="email" class="u-form-control-hidden u-label"></label>
                         <input type="text" placeholder="correo electrónico" id="email" name="email" class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle">
+                      </div>
+                      <div class="u-form-group u-form-group-3">
+                        <label for="telefono" class="u-form-control-hidden u-label"></label>
+                        <input type="text" placeholder="Teléfono" id="telefono" name="telefono" class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle">
                       </div>
                       <div class="u-form-group u-form-group-4">
                         <label for="direccion" class="u-form-control-hidden u-label"></label>

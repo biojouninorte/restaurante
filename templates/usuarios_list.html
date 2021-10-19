@@ -72,19 +72,34 @@
                             </tr>
                           </thead>
                           <tbody class="u-table-body">
+                            {% for user in usuario_list %}
+                          
                             <tr style="height: 46px;">
-                              <td class="u-border-1 u-border-grey-dark-1 u-table-cell">allocatesjealous</td>
-                              <td class="u-border-1 u-border-grey-dark-1 u-table-cell">Devon Lane</td>
-                              <td class="u-border-1 u-border-grey-dark-1 u-table-cell">exampleemail@you.co</td>
-                              <td class="u-border-1 u-border-grey-dark-1 u-table-cell">Admin</td>
+                              <td class="u-border-1 u-border-grey-dark-1 u-table-cell">{{ user[0] }} </td>
+                              <td class="u-border-1 u-border-grey-dark-1 u-table-cell">{{ user[1] }}</td>
+                              <td class="u-border-1 u-border-grey-dark-1 u-table-cell">{{ user[2] }}</td>
+                              <td class="u-border-1 u-border-grey-dark-1 u-table-cell">
+                                {% if user[6] %}
+                                Super admin
+                                {% endif %}
+
+                                {% if user[7] %}
+                                admin
+                                {% endif %}
+
+                                {% if user[8] %}
+                                Cliente
+                                {% endif %}
+                              </td>
                               <td class="u-border-1 u-border-grey-dark-1 u-table-cell">Margarita</td>
                               <td class="u-border-1 u-border-grey-dark-1 u-table-cell">
                                 <a class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-1 u-palette-4-dark-1 u-radius-24 u-btn-1" href="{{ url_for('update_user') }}">Editar</a>
                               </td>
                               <td class="u-border-1 u-border-grey-dark-1 u-table-cell">
-                                <a class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-1 u-palette-2-base u-radius-20 u-btn-1" href="https://nicepage.com">Eliminar</a>
+                                <a class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-1 u-palette-2-base u-radius-20 u-btn-1" href="#">Eliminar</a>
                               </td>
                             </tr>
+                            {% endfor %}
                           </tbody>
                         </table>
                       </div>

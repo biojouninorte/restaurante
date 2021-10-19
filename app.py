@@ -1,6 +1,8 @@
 import os
-from flask import Flask, request, render_template, flash
+from datetime import datetime, date
+from flask import Flask, request, render_template, flash, jsonify, redirect
 
+import usuario_controller
 
 app = Flask(__name__)
 app.secret_key=os.urandom(24)
@@ -28,7 +30,35 @@ def detalle_plato():
 
 @app.route('/register', methods=["GET","POST"])
 def register():
-    return render_template('registro.html')
+    try:
+        if request.method == 'POST':
+            print("Entro al POST")
+            error = None
+            password = request.form['password']
+            email = request.form['email']
+
+            nombre = request.form['nombre']
+            apellido = request.form['apellido']
+            telefono = request.form['telefono']
+            direccion = request.form['direccion']
+            created_by = date.today()
+            updated_by = date.today()
+            print("Validar usuario por email: ", created_by, updated_by)
+            comprobar = usuario_controller.get_validarusuario(email)
+            print("Comprobación", comprobar)
+            if comprobar is not None:
+                error = "El correo ya existe".format(email)
+                flash(error)
+                return render_template('registro.html')
+            
+            crear = usuario_controller.insert_usuario(nombre, apellido, email, telefono, direccion, password, created_by, updated_by)
+            print("ESTA AQUi", crear)
+            return redirect('menu')
+        return render_template('registro.html')
+    except:
+
+        return render_template('registro.html')
+    
 
 @app.route('/login', methods=["GET","POST"])
 def login():
@@ -38,6 +68,14 @@ def login():
 def getMenu():
     return render_template('menu_list.html')
 
+@app.route('/usuarios', methods=["GET", "POST"])
+def getUsuarios():
+    
+    if request.method == 'GET':
+        usuario_list = usuario_controller.get_usuarios()
+        return render_template('usuarios_list.html', usuario_list=usuario_list)
+    
+
 @app.route('/update_user', methods=["GET","POST"])
 def update_user():
     return render_template('usuario_update_form.html')
@@ -45,10 +83,6 @@ def update_user():
 @app.route('/update_bebida', methods=["GET","POST"])
 def update_bebida():
     return render_template('bebida_update_form.html')
-
-@app.route('/usuarios', methods=["GET"])
-def getUsuarios():
-    return render_template('usuarios_list.html')
 
 @app.route('/busqueda', methods=["GET"])
 def busqueda():
@@ -61,6 +95,7 @@ def favoritos():
 @app.route('/compra', methods=["GET"])
 def compra():
     return render_template('compra.html')
+
 
 if __name__ =='__main__':
     app.run(debug=True)
