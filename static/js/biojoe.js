@@ -12,7 +12,7 @@ function validar_formulario(){
         return false;
     }
 
-    let formato_email = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3,4})+$/;
+    let formato_email = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/;
     if(!email.value.match(formato_email)){
         alert("Debes ingresar un email valido!");
         email.focus();
@@ -25,7 +25,8 @@ function validar_formulario(){
         return false;
     }
 
-    if ( password != password2){
+    if ( password.value != password2.value){
+
         alert("El password no coincide, el password debe ser igual en ambos campos!")
         return false;
     }

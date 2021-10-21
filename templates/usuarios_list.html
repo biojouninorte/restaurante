@@ -62,8 +62,8 @@
                           </colgroup>
                           <thead class="u-align-center u-palette-5-dark-2 u-table-header u-table-header-1">
                             <tr style="height: 27px;">
-                              <th class="u-border-1 u-border-grey-dark-1 u-table-cell">Usuario</th>
                               <th class="u-border-1 u-border-grey-dark-1 u-table-cell">Nombre</th>
+                              <th class="u-border-1 u-border-grey-dark-1 u-table-cell">Apellido</th>
                               <th class="u-border-1 u-border-grey-dark-1 u-table-cell">Email</th>
                               <th class="u-border-1 u-border-grey-dark-1 u-table-cell">Rol</th>
                               <th class="u-border-1 u-border-grey-dark-1 u-table-cell">Bebida Favorita</th>
@@ -75,19 +75,19 @@
                             {% for user in usuario_list %}
                           
                             <tr style="height: 46px;">
-                              <td class="u-border-1 u-border-grey-dark-1 u-table-cell">{{ user[0] }} </td>
-                              <td class="u-border-1 u-border-grey-dark-1 u-table-cell">{{ user[1] }}</td>
+                              <td class="u-border-1 u-border-grey-dark-1 u-table-cell">{{ user[1] }} </td>
                               <td class="u-border-1 u-border-grey-dark-1 u-table-cell">{{ user[2] }}</td>
+                              <td class="u-border-1 u-border-grey-dark-1 u-table-cell">{{ user[3] }}</td>
                               <td class="u-border-1 u-border-grey-dark-1 u-table-cell">
-                                {% if user[6] %}
+                                {% if user[7] %}
                                 Super admin
                                 {% endif %}
 
-                                {% if user[7] %}
+                                {% if user[8] %}
                                 admin
                                 {% endif %}
 
-                                {% if user[8] %}
+                                {% if user[9] %}
                                 Cliente
                                 {% endif %}
                               </td>
