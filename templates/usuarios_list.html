@@ -79,15 +79,15 @@
                               <td class="u-border-1 u-border-grey-dark-1 u-table-cell">{{ user[1] }}</td>
                               <td class="u-border-1 u-border-grey-dark-1 u-table-cell">{{ user[2] }}</td>
                               <td class="u-border-1 u-border-grey-dark-1 u-table-cell">
-                                {% if user[6] %}
-                                Super admin
+                                {% if user[7] == 1 %}
+                                Super
                                 {% endif %}
 
-                                {% if user[7] %}
-                                admin
+                                {% if user[8] == 1 %}
+                                Admin
                                 {% endif %}
 
-                                {% if user[8] %}
+                                {% if user[9] == 1 %}
                                 Cliente
                                 {% endif %}
                               </td>

@@ -6,11 +6,11 @@ function validar_formulario(){
 
     let username_len = username.value.length;
 
-    if(username_len == 0 || username_len < 8){
-        alert("Debes ingresar un username con minímo 8 caracteres");
-        username_len.focus(); // No debe borrar los datos.
-        return false;
-    }
+    //if(username_len == 0 || username_len < 8){
+    //    alert("Debes ingresar un username con minímo 8 caracteres");
+    //    username_len.focus(); // No debe borrar los datos.
+    //    return false;
+    //}
 
     let formato_email = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3,4})+$/;
     if(!email.value.match(formato_email)){

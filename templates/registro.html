@@ -4,8 +4,8 @@
 {% block title %} Registro de usuarios {% endblock title %}
 
 {% block style %}
-    <link rel="stylesheet" href="../static/style/registro.css" media="screen">
-    <script src="../static/js/biojoe.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/registro.css') }}" media="screen">
+    <script src="{{ url_for('static', filename='js/biojoe.js') }}"></script>
 {% endblock style %}
 
 {% block content %}
@@ -27,7 +27,7 @@
                     <form method="POST" source="custom" class="u-clearfix u-form-custom-backend u-form-spacing-15 u-form-vertical u-inner-form" name="formRegistro" style="padding: 0px;" onSubmit="validar_formulario();">
                       <div class="u-form-group u-form-name">
                         <label for="nombre" class="u-form-control-hidden u-label"></label>
-                        <input type="text" placeholder="Nombres" name="nombre" id= "username" class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle">
+                        <input type="text" placeholder="Nombres" name="nombre" class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle">
                       </div>
                       <div class="u-form-group u-form-group-2">
                         <label for="apellido" class="u-form-control-hidden u-label"></label>
@@ -41,14 +41,18 @@
                         <label for="direccion" class="u-form-control-hidden u-label"></label>
                         <input type="text" placeholder="Dirección" name="direccion" class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle">
                       </div>
+                      <div class="u-form-group u-form-group-4">
+                        <label for="telefono" class="u-form-control-hidden u-label"></label>
+                        <input type="text" placeholder="Teléfono" name="telefono" class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle">
+                      </div>
                       <div class="u-form-group u-form-password">
                         <label for="password" class="u-form-control-hidden u-label"></label>
                         <input type="password" placeholder="Contraseña" name="password" id="password" class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle">
                       </div>
-                      <div class="u-form-group u-form-group-6">
+                      <!--div class="u-form-group u-form-group-6">
                         <label for="password2" class="u-form-control-hidden u-label"></label>
                         <input type="password" placeholder="Confirmar contraseña" name="password2" class="u-border-2 u-border-black u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle">
-                      </div>
+                      </div-->
                       
                       <div class="u-align-center u-form-group u-form-submit">
                         <button type="submit" class="u-active-palette-1-light-1 u-border-none u-btn u-btn-round u-btn-submit u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-50 u-text-body-alt-color u-btn-1">Enviar</button>

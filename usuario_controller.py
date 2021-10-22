@@ -1,6 +1,6 @@
 from flask import Flask
 from sqlite3 import Error
-from db import sqlconnection, get_db
+from db import sqlconnection, get_db, close_db
 
 
 
@@ -12,9 +12,7 @@ def insert_usuario(nombre, apellido, email, telefono, direccion, password, creat
         statement = "INSERT INTO usuarios (nombre, apellido, email, telefono, direccion, password, created_by, updated_by) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
         db.execute(statement, (nombre, apellido, email, telefono, direccion, password, created_by, updated_by))
         #db.cursor()
-        print("Usuario llego", db)
         db.commit()
-        
         db.close()
         return True
     except Error as err:
@@ -48,10 +46,19 @@ def get_validarusuario(email):
     statement = "SELECT id, nombre, email, estado FROM usuarios WHERE email = ?;"
     respuesta = cursor.execute(statement, [email]).fetchone()
    
-    #cursor.commit()
-    
     return respuesta
 
+def get_login(email):
+    try:
+        db = get_db()
+        statement = "SELECT * FROM usuarios WHERE email = ?"
+        respuesta = db.execute(statement, [email]).fetchone()
+
+        return respuesta
+
+    except Error as err:
+        print(err)
+    
 def get_usuarios():
     db = sqlconnection()
     cursor = db.cursor()
