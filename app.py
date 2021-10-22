@@ -1,10 +1,17 @@
 import os
+import sqlite3
 from datetime import datetime, date
 from flask import Flask, request, render_template, flash, jsonify, redirect
+<<<<<<< HEAD
 from werkzeug.security import check_password_hash as checkph
 from werkzeug.security import generate_password_hash as genph
 
+=======
+from sqlite3 import Error
+from db import sqlconnection
+>>>>>>> 840ed3787a2cbf7e63d99d43e5dfc27e9d163b50
 import usuario_controller
+import bebida_controller
 
 app = Flask(__name__)
 app.secret_key=os.urandom(24)
@@ -20,8 +27,9 @@ def about():
 
 @app.route('/bebidas', methods=["GET"])
 def getBebidas():
-    return render_template('bebidas_list.html')
-
+    if request.method == 'GET':
+        return render_template('bebidas_list.html', row = bebida_controller.list_bebidas())       
+     
 @app.route('/contacto', methods=["GET","POST"])
 def contacto():
     return render_template('contacto.html')
@@ -118,6 +126,10 @@ def favoritos():
 @app.route('/compra', methods=["GET"])
 def compra():
     return render_template('compra.html')
+
+@app.route('/addBebida', methods=["GET","POST"])
+def agregar_bebida():
+    return render_template('addBebida.html')
 
 
 if __name__ =='__main__':
