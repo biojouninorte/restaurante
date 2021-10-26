@@ -1,15 +1,14 @@
 import os
 import sqlite3
 from datetime import datetime, date
-from flask import Flask, request, render_template, flash, jsonify, redirect
-<<<<<<< HEAD
+from flask import Flask, url_for, request, render_template, flash, jsonify, redirect, session
+
 from werkzeug.security import check_password_hash as checkph
 from werkzeug.security import generate_password_hash as genph
 
-=======
+
 from sqlite3 import Error
 from db import sqlconnection
->>>>>>> 840ed3787a2cbf7e63d99d43e5dfc27e9d163b50
 import usuario_controller
 import bebida_controller
 
@@ -79,12 +78,13 @@ def login():
         error = None
         password = request.form['password']
         email = request.form['email']
-        print("pass", password)
+     
         #Comprobamos si existe un usuario con el mismo email
         user = usuario_controller.get_login(email)
         #Compara las claves ingresadas
         hash_clave = checkph(user[6], password)
         if user != None and hash_clave == True:
+            session["usuario"] = user
             return redirect('menu')
         else:
             error = "Usuario o Contraseña inválidos"
@@ -95,10 +95,23 @@ def login():
     #except:
         #return render_template('inicio_sesion.html')
 
+@app.route('/logout')
+def logout():
+    if "usuario" in session:
+        #session.pop("usuario", None)    
+        session.clear()
+        return render_template("login.html")
+
+    else:
+        return '<p> El usuario ya ha cerrado la sesión. <a href="/login">Login</a></p>'
 
 @app.route('/menu', methods=["GET"])
 def getMenu():
-    return render_template('menu_list.html')
+    if "usuario" in session:
+        print("Logueado", session["usuario"][3])
+        return render_template('menu_list.html')
+    else:
+        return redirect(url_for("login"))
 
 @app.route('/usuarios', methods=["GET", "POST"])
 def getUsuarios():

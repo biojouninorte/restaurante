@@ -23,8 +23,8 @@
                     <div class="u-container-layout u-valign-top u-container-layout-1">
                       <div class="u-image u-image-circle u-preserve-proportions u-image-1" alt="" data-image-width="512" data-image-height="512"></div>
                       <p class="u-small-text u-text u-text-variant u-text-1">BIENVENIDO</p>
-                      <p class="u-small-text u-text u-text-variant u-text-2">Nombre usuario</p>
-                      <p class="u-small-text u-text u-text-variant u-text-2"><a href="{{ url_for('index') }}">Cerrar sesión</a></p>
+                      <p class="u-small-text u-text u-text-variant u-text-2">{{ session["usuario"][1] }} {{session["usuario"][2]}}</p>
+                      <p class="u-small-text u-text u-text-variant u-text-2"><a href="{{ url_for('logout') }}">Cerrar sesión</a></p>
                     </div>
                   </div>
                 </div>
