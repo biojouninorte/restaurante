@@ -1,18 +1,21 @@
 import sqlite3
 from flask import Flask
-from db import sqlconnection
+from sqlite3 import Error
+from db import sqlconnection, get_db, close_db
 
+# Funciona
+def insert_bebida(nombreBebida, descripcion, precio, estado, created_by, updated_by):
+    try:
+        db = get_db()
+        statement = "INSERT INTO bebidas(nombreBebida, descripcion, precio, estado, created_by, updated_by) VALUES(?, ?, ?, ?, ?, ?);"
+        db.execute(statement, [nombreBebida, descripcion, precio, estado, created_by, updated_by])
+        db.commit()
+        db.close()
+        return True
+    except Error as err:
+        print(err)
 
-def insert_bebida(nombre, precio, cantidad):
-    db = sqlconnection()
-    cursor = db.cursor()
-    statement = "INSERT INTO bebidas(nombre, precio, cantidad) VALUES(?, ?, ?);"
-    cursor.execute(statement, [nombre, precio, cantidad])
-    cursor.commit()
-    cursor.close()
-    return True
-
-
+# No probada
 def update_bebida(nombre, precio, cantidad):
     db = sqlconnection()
     cursor = db.cursor()
@@ -22,6 +25,7 @@ def update_bebida(nombre, precio, cantidad):
     cursor.close()
     return True
 
+# No probada
 def get_bebida(id):
     db = sqlconnection()
     cursor = db.cursor()
@@ -31,16 +35,9 @@ def get_bebida(id):
     cursor.close()
     return True
 
-def get_bebidas(query):
-    db = sqlconnection()
-    cursor = db.cursor()
-    statement = "SELECT * FROM bebidas;"
-    cursor.execute(statement, [query])
-    
-    cursor.close()
-    return True
 
-def list_bebidas():
+# Funciona
+def get_bebidas():
     db = sqlconnection()
     db.row_factory=sqlite3.Row # Convierte la respuesta de la BD en un diccionario
     cur = db.cursor()  #manipular la conxion de la BD
@@ -48,6 +45,7 @@ def list_bebidas():
     row = cur.fetchall()
     return row
 
+# No probada
 def delete_bebidas(id):
     db = sqlconnection()
     cursor = db.cursor()

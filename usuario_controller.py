@@ -3,7 +3,7 @@ from sqlite3 import Error
 from db import sqlconnection, get_db, close_db
 
 
-
+# Funciona
 def insert_usuario(nombre, apellido, email, telefono, direccion, password, created_by, updated_by):
     #db = sqlconnection()
     try:
@@ -19,7 +19,7 @@ def insert_usuario(nombre, apellido, email, telefono, direccion, password, creat
         print(err)
     
     
-
+# No probada
 def update_usuario(nombre, apellido, email, telefono, direccion, password, created_by, updated_by):
     db = sqlconnection()
     cursor = db.cursor()
@@ -29,7 +29,7 @@ def update_usuario(nombre, apellido, email, telefono, direccion, password, creat
     cursor.close()
     return True
 
-
+# Funciona
 def get_usuario(id):
     db = sqlconnection()
     cursor = db.cursor()
@@ -39,6 +39,7 @@ def get_usuario(id):
     cursor.close()
     return True
 
+# Funciona
 def get_validarusuario(email):
     
     db = sqlconnection()
@@ -48,6 +49,7 @@ def get_validarusuario(email):
    
     return respuesta
 
+# Funciona
 def get_login(email):
     try:
         db = get_db()
@@ -58,7 +60,8 @@ def get_login(email):
 
     except Error as err:
         print(err)
-    
+        
+# Funciona  
 def get_usuarios():
     db = sqlconnection()
     cursor = db.cursor()

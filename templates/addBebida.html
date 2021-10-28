@@ -24,7 +24,37 @@
                   <h3 class="u-align-center-lg u-align-center-md u-align-center-xl u-text u-text-default u-text-1">Formulario Agregar Bebida</h3>
                   <div class="u-expanded-width-xs u-form u-login-control u-form-1">
 
-                    <form method="POST" source="custom" class="u-clearfix u-form-custom-backend u-form-spacing-15 u-form-vertical u-inner-form" name="formRegistro" style="padding: 0px;" onSubmit="validar_formulario();">
+                    <form method="post" action="/addBebida" id="formulario" novalidate>
+                      {{ form.hidden_tag() }}
+
+                      <div class="u-form-group u-form-name u-block-16c8-4">
+                        {{form.nombre.label}}:
+                        {{form.nombre}}
+                        <br><br>
+                      </div>
+                      <div class="u-form-group u-form-name u-block-16c8-4">
+                        {{form.precio.label}}:
+                        {{form.precio}}
+                        <br><br>
+                      </div>
+                      <div class="u-form-group u-form-name u-block-16c8-4">
+                        {{form.descripcion.label}}:
+                        {{form.descripcion(cols="30", rows="3") }}
+                        <br><br>
+                      </div>
+                      <div class="u-form-group u-form-name u-block-16c8-4">
+                        {{form.estado.label}}:
+                        {{form.estado}}
+                        <br><br>
+                      </div>
+                      <div class="u-align-center u-form-group u-form-submit">
+                        {{form.enviar}}
+                      </div>
+
+                    </form>
+
+
+                    <!--form method="POST" source="custom" class="u-clearfix u-form-custom-backend u-form-spacing-15 u-form-vertical u-inner-form" name="formRegistro" style="padding: 0px;" onSubmit="validar_formulario();">
                       <div class="u-form-group u-form-name u-block-16c8-4">
                         <label for="name-c23e" class="u-form-control-hidden u-label u-block-16c8-5"></label>
                         <input type="text" placeholder="Nombre de la bebida" id="name-c23e" name="name" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white u-block-16c8-6" required="">
@@ -34,8 +64,8 @@
                         <input type="text" placeholder="Ingrese el precio" id="email-c23e" name="email" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white u-block-16c8-9" required="required">
                       </div>
                       <div class="u-form-group u-form-message u-block-16c8-10">
-                        <label for="message-c23e" class="u-form-control-hidden u-label u-block-16c8-11"></label>
-                        <textarea placeholder="Ingrese la descripción" rows="4" cols="50" id="message-c23e" name="message" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white u-block-16c8-12" required=""></textarea>
+                        <label for="descripcion" class="u-form-control-hidden u-label u-block-16c8-11"></label>
+                        <textarea placeholder="Ingrese la descripción" rows="4" cols="50" id="descripcion" name="descripcion" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white u-block-16c8-12" required=""></textarea>
                       </div>
                       <div class="u-form-checkbox u-form-group u-block-16c8-15">
                       <input type="checkbox" id="checkbox-e9ee" name="checkbox" value="On" required="required" autofocus="autofocus">
@@ -43,7 +73,10 @@
                       <div class="u-align-center u-form-group u-form-submit">
                         <button type="submit" class="u-active-palette-1-light-1 u-border-none u-btn u-btn-round u-btn-submit u-button-style u-hover-palette-1-light-1 u-palette-1-base u-radius-50 u-text-body-alt-color u-btn-1">Enviar</button>
                       </div>
-                    </form>
+                    </form-->
+
+
+
                   </div>
                 </div>
               </div>

@@ -12,6 +12,8 @@ from db import sqlconnection
 import usuario_controller
 import bebida_controller
 
+from formulario import BebidaForm
+
 app = Flask(__name__)
 app.secret_key=os.urandom(24)
 
@@ -22,12 +24,7 @@ def index():
 
 @app.route('/about', methods=["GET"])
 def about():
-    return render_template('Acerca-de.html')
-
-@app.route('/bebidas', methods=["GET"])
-def getBebidas():
-    if request.method == 'GET':
-        return render_template('bebidas_list.html', row = bebida_controller.list_bebidas())       
+    return render_template('Acerca-de.html')    
      
 @app.route('/contacto', methods=["GET","POST"])
 def contacto():
@@ -72,28 +69,29 @@ def register():
 
 @app.route('/login', methods=["GET","POST"])
 def login():
-    #try:
-    if request.method == 'POST':
+    try:
         
-        error = None
-        password = request.form['password']
-        email = request.form['email']
-     
-        #Comprobamos si existe un usuario con el mismo email
-        user = usuario_controller.get_login(email)
-        #Compara las claves ingresadas
-        hash_clave = checkph(user[6], password)
-        if user != None and hash_clave == True:
-            session["usuario"] = user
-            return redirect('menu')
-        else:
-            error = "Usuario o Contraseña inválidos"
-            flash(error)
-            return render_template('inicio_sesion.html')
+        if request.method == 'POST':
             
-    return render_template('inicio_sesion.html')
-    #except:
-        #return render_template('inicio_sesion.html')
+            error = None
+            password = request.form['password']
+            email = request.form['email']
+        
+            #Comprobamos si existe un usuario con el mismo email
+            user = usuario_controller.get_login(email)
+            #Compara las claves ingresadas
+            hash_clave = checkph(user[6], password)
+            if user != None and hash_clave == True:
+                session["usuario"] = user
+                return redirect('menu')
+            else:
+                error = "Usuario o Contraseña inválidos"
+                flash(error)
+                return render_template('inicio_sesion.html')
+                
+        return render_template('inicio_sesion.html')
+    except:
+        return render_template('inicio_sesion.html')
 
 @app.route('/logout')
 def logout():
@@ -108,25 +106,33 @@ def logout():
 @app.route('/menu', methods=["GET"])
 def getMenu():
     if "usuario" in session:
-        print("Logueado", session["usuario"][3])
         return render_template('menu_list.html')
-    else:
-        return redirect(url_for("login"))
+    return redirect(url_for("login"))
 
 @app.route('/usuarios', methods=["GET", "POST"])
 def getUsuarios():
-    if request.method == 'GET':
-        usuario_list = usuario_controller.get_usuarios()
-        return render_template('usuarios_list.html', usuario_list=usuario_list)
+    if "usuario" in session:
+        if request.method == 'GET':
+            usuario_list = usuario_controller.get_usuarios()
+            return render_template('usuarios_list.html', usuario_list=usuario_list)
+    return redirect(url_for("login"))
     
 
 @app.route('/update_user', methods=["GET","POST"])
 def update_user():
-    return render_template('usuario_update_form.html')
+    if "usuario" in session:
+        if request.method == 'POST':
+            pass
+        return render_template('usuario_update_form.html')
+    return redirect(url_for("login"))
 
 @app.route('/update_bebida', methods=["GET","POST"])
 def update_bebida():
-    return render_template('bebida_update_form.html')
+    if "usuario" in session:
+        if request.method == 'POST':
+            pass
+        return render_template('bebida_update_form.html')
+    return redirect(url_for("login"))
 
 @app.route('/busqueda', methods=["GET"])
 def busqueda():
@@ -140,9 +146,35 @@ def favoritos():
 def compra():
     return render_template('compra.html')
 
+
+# Bebidas
+
+@app.route('/bebidas', methods=["GET"])
+def getBebidas():
+    if request.method == 'GET':
+        return render_template('bebidas_list.html', row = bebida_controller.get_bebidas())   
+
 @app.route('/addBebida', methods=["GET","POST"])
 def agregar_bebida():
-    return render_template('addBebida.html')
+    if "usuario" in session:
+        form = BebidaForm()
+        if request.method == 'POST':
+            nombreBebida = form.nombre.data
+            precio = form.precio.data
+            descripcion = form.descripcion.data
+            activo = form.estado.data
+            created_by = date.today()
+            updated_by = date.today()
+            if activo == True:
+                estado = 1
+            else:
+                estado = 0
+            add = bebida_controller.insert_bebida(nombreBebida, descripcion, precio, estado, created_by, updated_by)
+            # Con url_for se llama a la función no la ruta.
+            return redirect(url_for('getBebidas'))
+
+        return render_template('addBebida.html', form=form)
+    return redirect(url_for("login"))
 
 
 if __name__ =='__main__':
