@@ -12,31 +12,32 @@
       <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
         <h1 class="u-custom-font u-text u-text-default u-text-1">MENÚ DE BEBIDAS</h1>
         <p class="u-text u-text-2">Selecciona la bebida que más te guste.</p>
+
+        {% for r in row %}
         <div class="u-list u-list-1">
           <div class="u-repeater u-repeater-1">
             <div class="u-align-right u-container-style u-image u-list-item u-repeater-item u-shading u-video-cover u-image-1" data-image-width="1200" data-image-height="650">
               <div class="u-container-layout u-similar-container u-valign-middle-lg u-valign-middle-md u-valign-middle-sm u-valign-middle-xl u-container-layout-1">
                 <div class="u-align-center u-black u-container-style u-group u-opacity u-opacity-35 u-video-cover u-group-1">
                   <div class="u-container-layout u-valign-middle u-container-layout-2">
-                    <h4 class="u-text u-text-3">Margarita</h4>
-                    <h6 class="u-text u-text-palette-3-base u-text-4">COP 30.000</h6>
+                    <h4 class="u-text u-text-3">{{ r ["nombreBebida"] }}</h4>
+                    <h6 class="u-text u-text-palette-3-base u-text-4">COP {{r["precio"]}}</h6>
 
                     
                     <a href="{{ url_for('compra') }}" class="u-btn u-btn-rectangle u-button-style u-palette-3-base u-btn-1">&nbsp;&nbsp;Agregar al pedido&nbsp;&nbsp;</a>
                     <a href="{{ url_for('favoritos') }}" class="u-btn u-btn-rectangle u-button-style u-palette-3-base u-btn-1">Agregar a favoritos</a>
-                    <a href="{{ url_for('detalle_plato') }}" class="u-btn u-btn-rectangle u-button-style u-palette-3-base u-btn-1">Ver detalle</a>                  
+                    <a href="{{ url_for('detalle_plato', id=r["id"] ) }}" class="u-btn u-btn-rectangle u-button-style u-palette-3-base u-btn-1">Ver detalle</a>                  
                 
 
                   </div>
                 </div>
               </div>
             </div>
-            
           </div>
         </div>
-        
-          </a>
-        </p>
+        {% endfor %}
+
+         
       </div>
     </section>
 {% endblock content %}

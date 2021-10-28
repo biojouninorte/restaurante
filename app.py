@@ -30,9 +30,7 @@ def about():
 def contacto():
     return render_template('contacto.html')
 
-@app.route('/detalle_plato', methods=["GET"])
-def detalle_plato():
-    return render_template('detalle_plato.html')
+
 
 @app.route('/register', methods=["GET","POST"])
 def register():
@@ -98,7 +96,7 @@ def logout():
     if "usuario" in session:
         #session.pop("usuario", None)    
         session.clear()
-        return render_template("login.html")
+        return redirect(url_for("login"))
 
     else:
         return '<p> El usuario ya ha cerrado la sesión. <a href="/login">Login</a></p>'
@@ -106,7 +104,8 @@ def logout():
 @app.route('/menu', methods=["GET"])
 def getMenu():
     if "usuario" in session:
-        return render_template('menu_list.html')
+        row = bebida_controller.get_bebidas()
+        return render_template('menu_list.html', row = row)
     return redirect(url_for("login"))
 
 @app.route('/usuarios', methods=["GET", "POST"])
@@ -176,6 +175,24 @@ def agregar_bebida():
         return render_template('addBebida.html', form=form)
     return redirect(url_for("login"))
 
+
+@app.route('/detalle_plato/<int:id>/', methods=["GET"])
+def detalle_plato(id):
+    if "usuario" in session:
+        row = bebida_controller.get_bebida(id)
+        print("Ver detalle", id)
+        if request.method == 'POST':
+            bebidas_id = id
+            add = bebida_controller.calificar_bebida(bebidas_id, usuario_id, mensaje, created_by, update_by)
+        
+        return render_template('detalle_plato.html', row = row)
+    return redirect(url_for("login"))
+
+
+@app.route('/calificar/<int:id>/', methods=["POST"])
+def calificarBebida(id):
+
+    add = bebida_controller.calificar_bebida(bebida_id, calificacion)
 
 if __name__ =='__main__':
     app.run(debug=True)

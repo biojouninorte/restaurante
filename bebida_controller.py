@@ -28,12 +28,13 @@ def update_bebida(nombre, precio, cantidad):
 # No probada
 def get_bebida(id):
     db = sqlconnection()
-    cursor = db.cursor()
-    statement = "SELECT id, nombre, precio, cantidad FROM bebidas WHERE id = ?;"
-    cursor.execute(statement, [id])
-    cursor.commit()
-    cursor.close()
-    return True
+    db.row_factory=sqlite3.Row
+    cur = db.cursor()
+    statement = "SELECT * FROM bebidas WHERE id = ?;"
+    cur.execute(statement, [id])
+    row = cur.fetchall()
+    print("Row:", row)
+    return row
 
 
 # Funciona
@@ -46,7 +47,7 @@ def get_bebidas():
     return row
 
 # No probada
-def delete_bebidas(id):
+def delete_bebida(id):
     db = sqlconnection()
     cursor = db.cursor()
     statement = "DELETE FROM bebidas WHERE id = ?;"
@@ -54,3 +55,26 @@ def delete_bebidas(id):
     cursor.commit()
     cursor.close()
     return True
+
+
+def calificar_bebida(bebida_id, calificacion):
+    try:
+        db = get_db()
+        statement = "INSERT INTO calificaciones(bebida_id, calificacion) VALUES(?, ?);"
+        db.execute(statement, [bebida_id, calificacion])
+        db.commit()
+        db.close()
+        return True
+    except Error as err:
+        print(err)
+
+def comentario_bebida(bebidas_id, usuario_id, mensaje, created_by, update_by):
+    try:
+        db = get_db()
+        statement = "INSERT INTO comentarios(bebida_id, usuario_id, mensaje, created_by, update_by) VALUES(?, ?, ?, ?, ?);"
+        db.execute(statement, [bebidas_id, usuario_id, mensaje, created_by, update_by])
+        db.commit()
+        db.close()
+        return True
+    except Error as err:
+        print(err)
