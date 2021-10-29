@@ -87,6 +87,7 @@ def login():
                 session["super"] = user["superAdmin"]
                 session["admin"] = user["admin"]
                 session["cliente"] = user["usuarioFinal"]
+                session["bebida"] = []
                 return redirect('menu')
             else:
                 error = "Usuario o Contraseña inválidos"
@@ -182,9 +183,23 @@ def agregarFavorito(id):
             return redirect(url_for("favoritos"))
     return redirect(url_for("login"))
 
-@app.route('/compra', methods=["GET"])
+# Pedidos 
+@app.route('/compra', methods=["GET", "POST"])
 def compra():
-    return render_template('compra.html')
+    if session:
+        print("bebida: ", session["bebida"])
+        return render_template('compra.html')
+
+@app.route('/agregar-pedido/<int:id>', methods=["POST"])
+def addPedido(id):
+    if session:
+        lista = session["bebida"]
+        if request.method == 'POST':
+            lista.append(id)
+            session["bebida"] = lista
+            
+            return redirect(url_for("compra"))
+    return False
 
 
 # Bebidas

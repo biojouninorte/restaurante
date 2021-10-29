@@ -4,7 +4,7 @@
 {% block title %} Lista de bebidas {% endblock title %}
 
 {% block style %}
-    <link rel="stylesheet" href="../static/style/bebidas_list.css" media="screen">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/bebidas_list.css') }}" media="screen">
 {% endblock style %}
 
 {% for message in get_flashed_messages() %}

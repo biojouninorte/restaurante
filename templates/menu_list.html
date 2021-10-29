@@ -4,7 +4,7 @@
 {% block title %} Menú {% endblock title %}
 
 {% block style %}
-    <link rel="stylesheet" href="../static/style/menu_list.css" media="screen">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/menu_list.css' ) }}" media="screen">
 {% endblock style %}
 
 {% block content %}
@@ -24,11 +24,12 @@
                     <h6 class="u-text u-text-palette-3-base u-text-4">COP {{r["precio"]}}</h6>
 
                     
-                    <a href="{{ url_for('compra') }}" class="u-btn u-btn-rectangle u-button-style u-palette-3-base u-btn-1">&nbsp;&nbsp;Agregar al pedido&nbsp;&nbsp;</a>
-                    
+                   <form action="{{ url_for('addPedido', id=r["id"] ) }}" method="post">
+                      <button type="submit" class="u-btn u-btn-rectangle u-button-style u-palette-3-base u-btn-1">&nbsp;&nbsp;Agregar al pedido&nbsp;&nbsp;</button>
+                    </form>
+
                     <form action="{{ url_for('agregarFavorito', id=r["id"] ) }}" method="post">
                       <button type="submit" class="u-btn u-btn-rectangle u-button-style u-palette-3-base u-btn-1">Agregar a favoritos</button>
-                    <!--a href="{{ url_for('favoritos') }}" class="u-btn u-btn-rectangle u-button-style u-palette-3-base u-btn-1">Agregar a favoritos</a-->
                     </form>
 
                     <a href="{{ url_for('detalle_plato', id=r["id"] ) }}" class="u-btn u-btn-rectangle u-button-style u-palette-3-base u-btn-1">Ver detalle</a>                  
