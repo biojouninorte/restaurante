@@ -61,6 +61,21 @@
   background-position: 50% 50%;
 }
 
+/*Estrellas calificar*/
+label{ 
+  color:grey;
+  font-size: x-large;
+}
+input[type = "radio"]{ display:none;}
+.clasificacion{
+  direction: rtl;/* right to left */
+  unicode-bidi: bidi-override;/* bidi de bidireccional */
+}
+
+label:hover{color:orange;}
+label:hover ~ label{color:orange;}
+input[type = "radio"]:checked ~ label{color:orange;}
+
 @media (max-width: 1199px) {
   .u-section-1 {
     min-height: 575px;

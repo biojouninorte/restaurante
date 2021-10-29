@@ -176,23 +176,46 @@ def agregar_bebida():
     return redirect(url_for("login"))
 
 
-@app.route('/detalle_plato/<int:id>/', methods=["GET"])
+@app.route('/detalle_plato/<int:id>/', methods=["GET", "POST"])
 def detalle_plato(id):
     if "usuario" in session:
+        # Bebidas
         row = bebida_controller.get_bebida(id)
-        print("Ver detalle", id)
+        # Calificacion por id de bebidas
+        rowCal = bebida_controller.get_calificaciones(id)
+        total = 0
+        num_registro = 0
+        for r in rowCal:
+            total += r[0]
+            num_registro += 1
+
+        if num_registro > 0:
+            promedio = total/num_registro
+        else:
+            promedio = 0
+
+        # Calificacion por id de bebidas
+        comentario = bebida_controller.get_comentarios()
+
         if request.method == 'POST':
             bebidas_id = id
-            add = bebida_controller.calificar_bebida(bebidas_id, usuario_id, mensaje, created_by, update_by)
-        
-        return render_template('detalle_plato.html', row = row)
+            usuario_id = session["usuario"][0]
+            mensaje = request.form['mensaje']
+            created_by = date.today()
+            update_by = date.today()
+            estrellas = request.form['estrellas']
+            add = bebida_controller.comentario_bebida(bebidas_id, usuario_id, mensaje, estrellas, created_by, update_by)
+            
+            calificarBebida(bebidas_id, estrellas)
+       
+        return render_template('detalle_plato.html', row = row, estrella = promedio, comentario = comentario)
     return redirect(url_for("login"))
 
 
-@app.route('/calificar/<int:id>/', methods=["POST"])
-def calificarBebida(id):
-
+@app.route('/calificar/', methods=["POST"])
+def calificarBebida(bebida_id, calificacion):
     add = bebida_controller.calificar_bebida(bebida_id, calificacion)
+    return True
 
 if __name__ =='__main__':
     app.run(debug=True)
