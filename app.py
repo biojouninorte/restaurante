@@ -1,9 +1,7 @@
 import os
 import sqlite3
 import smtplib
-import usuario_controller
-import bebida_controller
-import favoritos_controller
+from decouple import config as config_decouple
 import pandas as pd
 from datetime import datetime, date
 from flask import Flask, url_for, request, render_template, flash, jsonify, redirect, session
@@ -19,6 +17,8 @@ import favoritos_controller
 from formulario import BebidaForm
 
 app = Flask(__name__)
+PORT = 5000
+DEBUG = False
 app.secret_key=os.urandom(24)
 
 
@@ -366,7 +366,7 @@ def calificarBebida(bebida_id, calificacion):
     return True
 
 if __name__ =='__main__':
-    app.run(debug=True)
+    app.run(debug=DEBUG)
 
 
 ##
