@@ -11,6 +11,7 @@ from sqlite3 import Error
 from db import sqlconnection
 import usuario_controller
 import bebida_controller
+import favoritos_controller
 
 from formulario import BebidaForm
 
@@ -143,9 +144,24 @@ def update_bebida():
 def busqueda():
     return render_template('busqueda.html')
 
+
+#favoritos
 @app.route('/favoritos', methods=["GET"])
 def favoritos():
-    return render_template('favoritos.html')
+    if request.method == 'GET':
+        return render_template('favoritos.html', row = favoritos_controller.get_favoritos()) 
+
+@app.route('/eliminarfavorito/<int:id>', methods=["GET"])
+def eliminarFavorito(id):
+    if "usuario" in session:
+        favoritos_controller.delete_favorito(id)
+    return redirect(url_for("favoritos"))
+
+@app.route('/agregarfavorito/<int:id>', methods=["GET"])
+def agregarFavorito(id):
+    if "usuario" in session:
+        favoritos_controller.agregar_favoritos(id)
+    return redirect(url_for("favoritos"))
 
 @app.route('/compra', methods=["GET"])
 def compra():
