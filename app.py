@@ -1,18 +1,16 @@
 import os
 import sqlite3
-from datetime import datetime, date
-from flask import Flask, url_for, request, render_template, flash, jsonify, redirect, session
-
-from werkzeug.security import check_password_hash as checkph
-from werkzeug.security import generate_password_hash as genph
-
-
-from sqlite3 import Error
-from db import sqlconnection
+import smtplib
 import usuario_controller
 import bebida_controller
 import favoritos_controller
-
+import pandas as pd
+from datetime import datetime, date
+from flask import Flask, url_for, request, render_template, flash, jsonify, redirect, session
+from werkzeug.security import check_password_hash as checkph
+from werkzeug.security import generate_password_hash as genph
+from sqlite3 import Error
+from db import sqlconnection
 from formulario import BebidaForm
 
 app = Flask(__name__)
@@ -29,9 +27,26 @@ def about():
      
 @app.route('/contacto', methods=["GET","POST"])
 def contacto():
-    return render_template('contacto.html')
-
-
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        email = request.form['email']
+        telefono = request.form['telefono']
+        mensaje = request.form['mensaje']
+        res = pd.DataFrame({'Nombre':nombre, 'email':email, 'telefono':telefono ,'mensaje':mensaje}, index=[False])
+        res.to_csv('./Mensajecontacto.csv', mode='a',index=False, header=False)
+        print("Los datos fueron enviados !")
+        respuesta = "Gracias por contactarnos, en el transcurso del dia estaremos respondiendo a tu solicitud"
+        try:
+            server = smtplib.SMTP("smtp.gmail.com",587)
+            server.starttls()
+            server.login("juiceitup50@gmail.com","uniNORTE50*") # correo creado gmail
+            server.sendmail("juiceitup50@gmail.com",email,respuesta)
+            print("Mensaje enviado !")
+            return render_template('contacto.html')
+        except:
+            print("error enviando")
+    else:
+        return render_template('contacto.html')
 
 @app.route('/register', methods=["GET","POST"])
 def register():
@@ -129,12 +144,24 @@ def getUsuarios():
     return redirect(url_for("login"))
     
 
-@app.route('/update_user', methods=["GET","POST"])
-def update_user():
+@app.route('/update_user/<int:id>', methods=["GET","POST"])
+def update_user(id):
     if session:
-        if request.method == 'POST':
-            pass
-        return render_template('usuario_update_form.html')
+        try:
+            if request.method == 'POST':
+                nombre = request.form['nombre']
+                apellido = request.form['apellido']
+                email = request.form['email']
+                telefono = request.form['telefono']
+                direccion = request.form['direccion']
+                password = genph(request.form['new_password'])
+                created_by = date.today()
+                updated_by = date.today()
+                crear = usuario_controller.update_usuario(nombre,apellido,email,telefono,direccion,password,created_by,updated_by,id)
+                return redirect(url_for("getUsuarios"))
+            return render_template('usuario_update_form.html', row = usuario_controller.get_usuario(id))    
+        except:
+            return render_template('usuario_update_form.html', row = usuario_controller.get_usuario(id))
     return redirect(url_for("login"))
 
 @app.route('/eliminarusuario/<int:id>', methods=["GET"])
@@ -142,14 +169,6 @@ def eliminarUsuario(id):
     if session:
         usuario_controller.delete_usuario(id)
     return redirect(url_for("getUsuarios"))
-
-@app.route('/update_bebida', methods=["GET","POST"])
-def update_bebida():
-    if session:
-        if request.method == 'POST':
-            pass
-        return render_template('bebida_update_form.html')
-    return redirect(url_for("login"))
 
 @app.route('/busqueda', methods=["GET"])
 def busqueda():
@@ -241,6 +260,23 @@ def eliminarBebidas(id):
     if session:
         bebida_controller.delete_bebidas(id)
     return redirect(url_for("getBebidas"))
+
+@app.route('/update_bebida/<int:id>', methods=["GET","POST"])
+def update_bebida(id):
+    if session:
+        try:
+            if request.method == 'POST':         
+                nombre = request.form['nombre']
+                descripcion = request.form['descripcion']
+                precio = request.form['precio']
+                disponibilidad = request.form['disponibilidad']
+                crear = bebida_controller.update_bebida(nombre,descripcion,precio,disponibilidad,id)
+                return redirect(url_for("getBebidas"))
+            return render_template('bebida_update_form.html', row = bebida_controller.get_bebida(id))
+        except:
+            return render_template('bebida_update_form.html', row = bebida_controller.get_bebida(id))
+    return redirect(url_for("login"))
+
 
 @app.route('/detalle_plato/<int:id>/', methods=["GET", "POST"])
 def detalle_plato(id):

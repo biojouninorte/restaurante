@@ -20,15 +20,18 @@ def insert_usuario(nombre, apellido, email, telefono, direccion, password, creat
         print(err)
     
     
-# No probada
-def update_usuario(nombre, apellido, email, telefono, direccion, password, created_by, updated_by):
-    db = sqlconnection()
-    cursor = db.cursor()
-    statement = "UPDATE usuarios SET(nombre = ?, apellido = ? email = ?, telefono = ?, direccion = ?, password = ?, created_by = ?, update_by = ?) WHERE id = ?;"
-    cursor.execute(statement, [nombre, apellido, email, telefono, direccion, password, created_by, updated_by])
-    cursor.commit()
-    cursor.close()
-    return True
+# Funciona
+def update_usuario(nombre, apellido, email, telefono, direccion, password, created_by, updated_by,id):
+    #db = sqlconnection()
+    try:
+        db = get_db()
+        statement = "UPDATE usuarios SET nombre = ?, apellido = ? email = ?, telefono = ?, direccion = ?, password = ?, created_by = ?, update_by = ? WHERE id = ?;"
+        db.execute("UPDATE usuarios SET nombre=?, apellido=?, email=?, telefono=?, direccion=?, password=? WHERE id = ? ", [nombre, apellido, email, telefono, direccion, password, id])
+        db.commit()
+        db.close()
+        return True
+    except Error as err:
+        print(err)
 
 # Funciona
 def get_usuario(id):

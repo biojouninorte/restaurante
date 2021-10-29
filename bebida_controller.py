@@ -15,15 +15,16 @@ def insert_bebida(nombreBebida, descripcion, precio, estado, created_by, updated
     except Error as err:
         print(err)
 
-# No probada
-def update_bebida(nombre, precio, cantidad):
-    db = sqlconnection()
-    cursor = db.cursor()
-    statement = "UPDATE bebidas SET (nombre = ?, precio = ?, cantidad = ?) WHERE id = ?;"
-    cursor.execute(statement, [nombre, precio, cantidad])
-    cursor.commit()
-    cursor.close()
-    return True
+# funciona
+def update_bebida(nombre,descripcion,precio,disponibilidad,id):
+    try:
+        db = get_db()
+        db.execute("UPDATE bebidas SET nombreBebida=?, descripcion=?, precio=?, estado=? WHERE id = ? ", [nombre, descripcion, precio, disponibilidad, id])
+        db.commit()
+        db.close()
+        return True
+    except Error as err:
+        print(err)
 
 # Funciona
 def get_bebida(id):
