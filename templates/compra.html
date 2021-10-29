@@ -4,7 +4,7 @@
 {% block title %} Compra {% endblock title %}
 
 {% block style %}
-    <link rel="stylesheet" href="../static/style/compra.css" media="screen">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/compra.css') }}" media="screen">
 {% endblock style %}
 
 {% block content %}
@@ -16,56 +16,44 @@
           <div class="u-container-style u-layout-cell u-size-30 u-layout-cell-1">
             <div class="u-container-layout u-container-layout-1">
               <h3 class="u-text u-text-default u-text-1">Tu pedido</h3>
-              <h4 class="u-text u-text-default u-text-2">Margarita {{session["bebida"]}}</h4><span class="u-icon u-icon-circle u-text-palette-1-base u-icon-1"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 512 512"><use xlink:href="#svg-cd4d"></use></svg><svg class="u-svg-content" viewBox="0 0 512 512" x="0px" y="0px" id="svg-cd4d" style="enable-background:new 0 0 512 512;"><g><g><path d="M256,0C114.833,0,0,114.833,0,256s114.833,256,256,256s256-114.853,256-256S397.167,0,256,0z M256,472.341    c-119.275,0-216.341-97.046-216.341-216.341S136.725,39.659,256,39.659S472.341,136.705,472.341,256S375.295,472.341,256,472.341z    "></path>
-</g>
-</g><g><g><path d="M355.148,234.386H275.83v-79.318c0-10.946-8.864-19.83-19.83-19.83s-19.83,8.884-19.83,19.83v79.318h-79.318    c-10.966,0-19.83,8.884-19.83,19.83s8.864,19.83,19.83,19.83h79.318v79.318c0,10.946,8.864,19.83,19.83,19.83    s19.83-8.884,19.83-19.83v-79.318h79.318c10.966,0,19.83-8.884,19.83-19.83S366.114,234.386,355.148,234.386z"></path>
-</g>
-</g></svg></span>
-              <h5 class="u-text u-text-default u-text-3">0</h5><span class="u-icon u-icon-circle u-text-palette-1-base u-icon-2"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 612 612"><use xlink:href="#svg-5fc6"></use></svg><svg class="u-svg-content" viewBox="0 0 612 612" x="0px" y="0px" id="svg-5fc6" style="enable-background:new 0 0 612 612;"><g><g id="_x39__2_"><g><path d="M306,0C136.992,0,0,136.992,0,306s136.992,306,306,306s306-137.012,306-306S475.008,0,306,0z M306,573.75     C158.125,573.75,38.25,453.875,38.25,306C38.25,158.125,158.125,38.25,306,38.25c147.875,0,267.75,119.875,267.75,267.75     C573.75,453.875,453.875,573.75,306,573.75z M420.75,286.875h-229.5c-10.557,0-19.125,8.568-19.125,19.125     c0,10.557,8.568,19.125,19.125,19.125h229.5c10.557,0,19.125-8.568,19.125-19.125     C439.875,295.443,431.307,286.875,420.75,286.875z"></path>
-</g>
-</g>
-</g></svg></span>
-              <h4 class="u-text u-text-default u-text-4">$ 3500</h4>
+
+              <form method="post" action="{{ url_for('compra') }}">
+             {% for r in row %}
+              <h4 class="u-text u-text-default u-text-2">{{ r["nombre"] }}</h4>
+              <span class="u-icon u-icon-circle u-text-palette-1-base u-icon-1">
+                <input name="numero{{ r["id"] }}" id="numero{{ r["id"] }}" class="monto" type="number" value="{{ r["precio"] }}" min="{{ r["precio"] }}" placeholder="{{ r["precio"] }}" step="{{ r["precio"] }}" style="width : 80px; color:black" onchange="sumar(this.value);">
+              </span>
+              <h5 class="u-text u-text-default u-text-4 small">$ {{ r["precio"] }}</h5>
               <a href="#" class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-2-base u-radius-50 u-btn-1">Eliminar</a>
-              <h4 class="u-text u-text-default u-text-5">Vino</h4><span class="u-icon u-icon-circle u-text-palette-1-base u-icon-3"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 512 512"><use xlink:href="#svg-eaf7"></use></svg><svg class="u-svg-content" viewBox="0 0 512 512" x="0px" y="0px" id="svg-eaf7" style="enable-background:new 0 0 512 512;"><g><g><path d="M256,0C114.833,0,0,114.833,0,256s114.833,256,256,256s256-114.853,256-256S397.167,0,256,0z M256,472.341    c-119.275,0-216.341-97.046-216.341-216.341S136.725,39.659,256,39.659S472.341,136.705,472.341,256S375.295,472.341,256,472.341z    "></path>
-</g>
-</g><g><g><path d="M355.148,234.386H275.83v-79.318c0-10.946-8.864-19.83-19.83-19.83s-19.83,8.884-19.83,19.83v79.318h-79.318    c-10.966,0-19.83,8.884-19.83,19.83s8.864,19.83,19.83,19.83h79.318v79.318c0,10.946,8.864,19.83,19.83,19.83    s19.83-8.884,19.83-19.83v-79.318h79.318c10.966,0,19.83-8.884,19.83-19.83S366.114,234.386,355.148,234.386z"></path>
-</g>
-</g></svg></span>
-              <h5 class="u-text u-text-default u-text-6">0</h5><span class="u-icon u-icon-circle u-text-palette-1-base u-icon-4"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 612 612"><use xlink:href="#svg-1467"></use></svg><svg class="u-svg-content" viewBox="0 0 612 612" x="0px" y="0px" id="svg-1467" style="enable-background:new 0 0 612 612;"><g><g id="_x39__2_"><g><path d="M306,0C136.992,0,0,136.992,0,306s136.992,306,306,306s306-137.012,306-306S475.008,0,306,0z M306,573.75     C158.125,573.75,38.25,453.875,38.25,306C38.25,158.125,158.125,38.25,306,38.25c147.875,0,267.75,119.875,267.75,267.75     C573.75,453.875,453.875,573.75,306,573.75z M420.75,286.875h-229.5c-10.557,0-19.125,8.568-19.125,19.125     c0,10.557,8.568,19.125,19.125,19.125h229.5c10.557,0,19.125-8.568,19.125-19.125     C439.875,295.443,431.307,286.875,420.75,286.875z"></path>
-</g>
-</g>
-</g></svg></span>
-              <h4 class="u-text u-text-default u-text-7">$ 3500</h4>
-              <a href="#" class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-2-base u-radius-50 u-btn-2">Eliminar</a>
+              {% endfor %}
+
               <div class="u-border-3 u-border-grey-dark-1 u-expanded-width u-line u-line-horizontal u-line-1"></div>
               <h4 class="u-text u-text-default u-text-8">Subtotal</h4>
-              <h4 class="u-text u-text-default u-text-9">$ 7000</h4>
+              <h4 class="u-text u-text-default u-text-9">$ <input type="number" id="subtotal" value="0" readonly style="width : 100px; color:black"/></h4>
               <h4 class="u-text u-text-default u-text-10">Precio entrega</h4>
-              <h4 class="u-text u-text-default u-text-11">$ 500</h4>
+              <h4 class="u-text u-text-default u-text-11">$ <input type="number" id="entrega" value="5000" readonly style="width : 100px; color:black"/></h4>
               <h4 class="u-text u-text-default u-text-12">Total</h4>
-              <h4 class="u-text u-text-default u-text-13">$ 7500</h4>
+              <h4 class="u-text u-text-default u-text-13">$ <input type="number" id="total" name="total" value="0" readonly style="width : 100px; color:black"/></h4>
             </div>
           </div>
           <div class="u-container-style u-layout-cell u-size-30 u-layout-cell-2">
             <div class="u-container-layout u-container-layout-2">
               <h3 class="u-text u-text-default u-text-14">Detalles del pedido</h3>
-              <h4 class="u-text u-text-default u-text-15">Nombre:</h4>
-              <h4 class="u-text u-text-default u-text-16">Jane G</h4>
+              <h4 class="u-text u-text-default u-text-15">Nombre</h4>
+              <h4 class="u-text u-text-default u-text-16">{{session["nombre"]}}</h4>
               <h4 class="u-text u-text-default u-text-17">Correo:</h4>
-              <h4 class="u-text u-text-default u-text-18">example@er.co</h4>
+              <h4 class="u-text u-text-default u-text-18">{{session["email"]}}</h4>
               <h4 class="u-text u-text-default u-text-19">Teléfono:</h4>
-              <h4 class="u-text u-text-default u-text-20">2434958</h4>
+              <h4 class="u-text u-text-default u-text-20">{{session["telefono"]}}</h4>
               <h4 class="u-text u-text-default u-text-21">Dirección:</h4>
-              <h4 class="u-text u-text-default u-text-22">Cra. 23 # 456-23</h4>
+              <h4 class="u-text u-text-default u-text-22">{{session["direccion"]}}</h4>
               
               <h4 class="u-text u-text-default u-text-23"><a href="{{ url_for('update_user') }}" class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-4-base u-radius-50 u-btn-3">Editar detalle</a>
               </h4>
-              <!--a href="https://nicepage.com/c/pricing-website-templates" class="u-border-1 u-border-palette-1-light-1 u-btn u-btn-round u-button-style u-palette-1-light-3 u-radius-3 u-text-palette-1-dark-2 u-btn-4">MÉTODO DE PAGO<span class="u-icon u-text-palette-1-dark-2 u-icon-5"><svg class="u-svg-content" viewBox="0 0 490.677 490.677" x="0px" y="0px" style="width: 1em; height: 1em;"><path d="M489.272,37.339c-1.92-3.307-5.44-5.333-9.259-5.333H10.68c-3.819,0-7.339,2.027-9.259,5.333    c-1.899,3.307-1.899,7.36,0.021,10.667l234.667,405.333c1.899,3.307,5.419,5.333,9.237,5.333s7.339-2.027,9.237-5.333 L489.251,48.005C491.149,44.72,491.149,40.645,489.272,37.339z"></path></svg><img></span>
-              </a-->
               <h4 class="u-text u-text-default u-text-23">
               <button onclick="alert('pedido exitoso')" class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-4-base u-radius-50 u-btn-5">CONFIRMAR COMPRA</button>
             </h4>
+          </form>
 
             </div>
           </div>
@@ -74,4 +62,21 @@
     </div>
   </div>
 </section>
+
+<script type="text/javascript">
+  /* Funcion suma. */
+  function sumar(){
+      let entrega = document.getElementById("entrega").value;
+      const $sub_total = document.getElementById('subtotal');
+      const $total = document.getElementById('total');
+      let subtotal = 0;
+      [ ...document.getElementsByClassName( "monto" ) ].forEach( function ( element ) {
+        if(element.value !== '') {
+          subtotal += parseFloat(element.value);
+        }
+      });
+      $sub_total.value = subtotal;
+      $total.value = subtotal + parseFloat(entrega);
+    }
+  </script>
 {% endblock content %}

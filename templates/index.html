@@ -102,6 +102,7 @@
 
   {% if session %}
 </li><li class="u-nav-item"><a class="u-active-palette-1-base u-border-active-palette-1-base u-border-hover-palette-1-light-1 u-button-style u-hover-palette-1-light-1 u-nav-link u-text-active-white u-text-grey-90 u-text-hover-white" href="{{ url_for('favoritos') }}" style="padding: 10px 20px;">Favoritos</a>
+</li><li class="u-nav-item"><a class="u-active-palette-1-base u-border-active-palette-1-base u-border-hover-palette-1-light-1 u-button-style u-hover-palette-1-light-1 u-nav-link u-text-active-white u-text-grey-90 u-text-hover-white" href="{{ url_for('compra') }}" style="padding: 10px 20px;">Carrito</a>
 </li><li class="u-nav-item"><a class="u-active-palette-1-base u-border-active-palette-1-base u-border-hover-palette-1-light-1 u-button-style u-hover-palette-1-light-1 u-nav-link u-text-active-white u-text-grey-90 u-text-hover-white" href="{{ url_for('logout') }}" style="padding: 10px 20px;">Cerrar sesión</a>
 
 </li><li class="u-nav-item"><a class="u-active-palette-1-base u-border-active-palette-1-base u-border-hover-palette-1-light-1 u-button-style u-hover-palette-1-light-1 u-nav-link u-text-active-white u-text-grey-90 u-text-hover-white" href="{{ url_for('getBebidas') }}" style="padding: 10px 20px;">Dashboard</a>
@@ -122,6 +123,7 @@
 
 {% if session %}
 </li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="{{ url_for('favoritos') }}" style="padding: 10px 20px;">Favoritos</a>
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="{{ url_for('compra') }}" style="padding: 10px 20px;">Carrito</a>
 </li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="{{ url_for('logout') }}" style="padding: 10px 20px;">Cerrar sesión</a>
 </li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="{{ url_for('getBebidas') }}" style="padding: 10px 20px;">Dashboard</a>
 {% else %}

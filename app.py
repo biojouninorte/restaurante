@@ -11,6 +11,7 @@ from sqlite3 import Error
 from db import sqlconnection
 import usuario_controller
 import bebida_controller
+import pedido_controller
 import favoritos_controller
 
 from formulario import BebidaForm
@@ -87,6 +88,8 @@ def login():
                 session["super"] = user["superAdmin"]
                 session["admin"] = user["admin"]
                 session["cliente"] = user["usuarioFinal"]
+                session["telefono"] = user["telefono"]
+                session["direccion"] = user["direccion"]
                 session["bebida"] = []
                 return redirect('menu')
             else:
@@ -187,8 +190,33 @@ def agregarFavorito(id):
 @app.route('/compra', methods=["GET", "POST"])
 def compra():
     if session:
-        print("bebida: ", session["bebida"])
-        return render_template('compra.html')
+        listado = []
+        for id in session["bebida"]:
+            dict_pedido = {}
+            row = bebida_controller.get_bebida(id)
+            
+            dict_pedido["id"] = row["id"]
+            dict_pedido["nombre"] = row["nombreBebida"]
+            dict_pedido["precio"] = row["precio"]
+            listado.append(dict_pedido)
+
+        if request.method == "POST":
+            usuario_id = session["id"]
+            created_by = date.today()
+            updated_by = date.today()
+            direccion = session["direccion"]
+
+            for instance in listado:
+                bebida_id = instance["id"]
+                indicador = "numero"+str(bebida_id)
+                valor = int(request.form[indicador])
+
+                add = pedido_controller.insert_pedido(usuario_id, bebida_id, valor, direccion, created_by, updated_by)
+
+            return redirect(url_for(getMenu))
+
+        return render_template('compra.html', row = listado)
+    return redirect(url_for("login"))
 
 @app.route('/agregar-pedido/<int:id>', methods=["POST"])
 def addPedido(id):
@@ -199,7 +227,7 @@ def addPedido(id):
             session["bebida"] = lista
             
             return redirect(url_for("compra"))
-    return False
+    return redirect(url_for("login"))
 
 
 # Bebidas

@@ -16,11 +16,11 @@ def insert_bebida(nombreBebida, descripcion, precio, estado, created_by, updated
         print(err)
 
 # No probada
-def update_bebida(nombre, precio, cantidad):
+def update_bebida(nombre, precio):
     db = sqlconnection()
     cursor = db.cursor()
-    statement = "UPDATE bebidas SET (nombre = ?, precio = ?, cantidad = ?) WHERE id = ?;"
-    cursor.execute(statement, [nombre, precio, cantidad])
+    statement = "UPDATE bebidas SET (nombre = ?, precio = ?) WHERE id = ?;"
+    cursor.execute(statement, [nombre, precio])
     cursor.commit()
     cursor.close()
     return True
@@ -32,7 +32,7 @@ def get_bebida(id):
     cur = db.cursor()
     statement = "SELECT * FROM bebidas WHERE id = ?;"
     cur.execute(statement, [id])
-    row = cur.fetchall()
+    row = cur.fetchone()
   
     return row
 
@@ -58,7 +58,7 @@ def delete_bebidas(id):
     except Error as err:
         print(err)
 
-
+# Funciona
 def calificar_bebida(bebida_id, calificacion):
     try:
         db = get_db()
@@ -81,6 +81,7 @@ def get_calificaciones(bebida_id):
   
     return row
 
+# Funciona
 def comentario_bebida(bebidas_id, usuario_id, mensaje, califi, created_by, update_by):
     try:
         db = get_db()
@@ -92,6 +93,7 @@ def comentario_bebida(bebidas_id, usuario_id, mensaje, califi, created_by, updat
     except Error as err:
         print(err)
 
+# Funciona
 def get_comentarios():
     db = sqlconnection()
     db.row_factory=sqlite3.Row
