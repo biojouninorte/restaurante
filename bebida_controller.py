@@ -46,15 +46,17 @@ def get_bebidas():
     row = cur.fetchall()
     return row
 
-# No probada
-def delete_bebida(id):
-    db = sqlconnection()
-    cursor = db.cursor()
-    statement = "DELETE FROM bebidas WHERE id = ?;"
-    cursor.execute(statement, [id])
-    cursor.commit()
-    cursor.close()
-    return True
+# Funciona
+def delete_bebidas(id):
+    try:
+        db = get_db()
+        statement = "DELETE FROM bebidas WHERE id =?;"
+        db.execute(statement,[id])
+        db.commit()
+        db.close()
+        return True
+    except Error as err:
+        print(err)
 
 
 def calificar_bebida(bebida_id, calificacion):

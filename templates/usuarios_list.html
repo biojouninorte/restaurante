@@ -80,34 +80,25 @@
                               <td class="u-border-1 u-border-grey-dark-1 u-table-cell">{{ user[3] }}</td>
                               <td class="u-border-1 u-border-grey-dark-1 u-table-cell">
 
-                                {% if user[7] == 1 %}
-                                Super
-                                {% endif %}
-
-                                {% if user[8] == 1 %}
-                                Admin
-                                {% endif %}
-
-                                {% if user[9] == 1 %}
-
-                                {% if user[7] %}
+                                {% if (user[7] == 1 or user[7])  %}
                                 Super admin
                                 {% endif %}
 
-                                {% if user[8] %}
-                                admin
+                                {% if (user[8] == 1 or user[8]) %}
+                                Admin
                                 {% endif %}
 
-                                {% if user[9] %}
+                                {% if (user[9] == 1 or user[9]) %}
                                 Cliente
                                 {% endif %}
+
                               </td>
                               <td class="u-border-1 u-border-grey-dark-1 u-table-cell">Margarita</td>
                               <td class="u-border-1 u-border-grey-dark-1 u-table-cell">
-                                <a class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-1 u-palette-4-dark-1 u-radius-24 u-btn-1" href="{{ url_for('update_user') }}">Editar</a>
+                                <a class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-1 u-palette-4-dark-1 u-radius-24 u-btn-1" href="{{ url_for('update_user',id= user[0]) }}">Editar</a>
                               </td>
                               <td class="u-border-1 u-border-grey-dark-1 u-table-cell">
-                                <a class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-1 u-palette-2-base u-radius-20 u-btn-1" href="#">Eliminar</a>
+                                <a class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-1 u-palette-2-base u-radius-20 u-btn-1" href="{{ url_for('eliminarUsuario', id= user[0]) }}">Eliminar</a>
                               </td>
                             </tr>
                             {% endfor %}

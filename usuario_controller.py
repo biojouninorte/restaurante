@@ -70,11 +70,13 @@ def get_usuarios():
     #cursor.close()
     return cursor
 
-def delete_usuarios(id):
-    db = sqlconnection()
-    cursor = db.cursor()
-    statement = "DELETE FROM usuarios WHERE id = ?;"
-    cursor.execute(statement, [id])
-    cursor.commit()
-    cursor.close()
-    return True
+def delete_usuario(id):
+    try:
+        db = get_db()
+        statement = "DELETE FROM usuarios WHERE id =?;"
+        db.execute(statement,[id])
+        db.commit()
+        db.close()
+        return True
+    except Error as err:
+        print(err)
