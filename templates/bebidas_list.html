@@ -99,10 +99,10 @@
                               </td>
 
                               <td class="u-border-1 u-border-grey-dark-1 u-table-cell">
-                                <a class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-1 u-palette-4-dark-1 u-radius-24 u-btn-1" href="{{ url_for('update_bebida') }}">Editar</a>
+                                <a class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-1 u-palette-4-dark-1 u-radius-24 u-btn-1" href="{{ url_for('update_bebida', id= r[0]) }}">Editar</a>
                               </td>
                               <td class="u-border-1 u-border-grey-dark-1 u-table-cell">
-                                <a class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-1 u-palette-2-base u-radius-20 u-btn-1" href="https://nicepage.com">Eliminar</a>
+                                <a class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-1 u-palette-2-base u-radius-20 u-btn-1" href="{{ url_for('eliminarBebidas', id= r[0]) }}">Eliminar</a>
                               </td>
                             </tr>
                             {% endfor %}

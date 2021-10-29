@@ -125,6 +125,12 @@ def update_user():
         return render_template('usuario_update_form.html')
     return redirect(url_for("login"))
 
+@app.route('/eliminarusuario/<int:id>', methods=["GET"])
+def eliminarUsuario(id):
+    if "usuario" in session:
+        usuario_controller.delete_usuario(id)
+    return redirect(url_for("getUsuarios"))
+
 @app.route('/update_bebida', methods=["GET","POST"])
 def update_bebida():
     if "usuario" in session:
@@ -175,6 +181,11 @@ def agregar_bebida():
         return render_template('addBebida.html', form=form)
     return redirect(url_for("login"))
 
+@app.route('/eliminarbebidas/<int:id>', methods=["GET"])
+def eliminarBebidas(id):
+    if "usuario" in session:
+        bebida_controller.delete_bebidas(id)
+    return redirect(url_for("getBebidas"))
 
 @app.route('/detalle_plato/<int:id>/', methods=["GET", "POST"])
 def detalle_plato(id):
@@ -211,9 +222,9 @@ def detalle_plato(id):
         return render_template('detalle_plato.html', row = row, estrella = promedio, comentario = comentario)
     return redirect(url_for("login"))
 
-
 @app.route('/calificar/', methods=["POST"])
 def calificarBebida(bebida_id, calificacion):
+
     add = bebida_controller.calificar_bebida(bebida_id, calificacion)
     return True
 
