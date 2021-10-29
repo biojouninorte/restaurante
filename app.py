@@ -79,9 +79,14 @@ def login():
             #Comprobamos si existe un usuario con el mismo email
             user = usuario_controller.get_login(email)
             #Compara las claves ingresadas
-            hash_clave = checkph(user[6], password)
+            hash_clave = checkph(user["password"], password)
             if user != None and hash_clave == True:
-                session["usuario"] = user
+                session["id"] = user["id"]
+                session["email"] = user["email"]
+                session["nombre"] = str(user["nombre"]) +" "+str(user["apellido"])
+                session["super"] = user["superAdmin"]
+                session["admin"] = user["admin"]
+                session["cliente"] = user["usuarioFinal"]
                 return redirect('menu')
             else:
                 error = "Usuario o Contraseña inválidos"
@@ -94,7 +99,7 @@ def login():
 
 @app.route('/logout')
 def logout():
-    if "usuario" in session:
+    if session:
         #session.pop("usuario", None)    
         session.clear()
         return redirect(url_for("login"))
@@ -104,23 +109,28 @@ def logout():
 
 @app.route('/menu', methods=["GET"])
 def getMenu():
-    if "usuario" in session:
+    
+    if session:
         row = bebida_controller.get_bebidas()
         return render_template('menu_list.html', row = row)
     return redirect(url_for("login"))
 
 @app.route('/usuarios', methods=["GET", "POST"])
 def getUsuarios():
-    if "usuario" in session:
+    if session:
         if request.method == 'GET':
-            usuario_list = usuario_controller.get_usuarios()
+            if session["super"] == 1 or session["admin"] == 1:
+                usuario_list = usuario_controller.get_usuarios()
+            else:
+                id = session["id"] 
+                usuario_list = usuario_controller.get_usuario(id)
             return render_template('usuarios_list.html', usuario_list=usuario_list)
     return redirect(url_for("login"))
     
 
 @app.route('/update_user', methods=["GET","POST"])
 def update_user():
-    if "usuario" in session:
+    if session:
         if request.method == 'POST':
             pass
         return render_template('usuario_update_form.html')
@@ -128,13 +138,13 @@ def update_user():
 
 @app.route('/eliminarusuario/<int:id>', methods=["GET"])
 def eliminarUsuario(id):
-    if "usuario" in session:
+    if session:
         usuario_controller.delete_usuario(id)
     return redirect(url_for("getUsuarios"))
 
 @app.route('/update_bebida', methods=["GET","POST"])
 def update_bebida():
-    if "usuario" in session:
+    if session:
         if request.method == 'POST':
             pass
         return render_template('bebida_update_form.html')
@@ -148,20 +158,29 @@ def busqueda():
 #favoritos
 @app.route('/favoritos', methods=["GET"])
 def favoritos():
-    if request.method == 'GET':
-        return render_template('favoritos.html', row = favoritos_controller.get_favoritos()) 
+    if session:
+        if request.method == 'GET':
+            usuario_id = session["id"]
+            return render_template('favoritos.html', row = favoritos_controller.get_favoritos(usuario_id))
+        
+    return redirect(url_for("login"))
+        
 
 @app.route('/eliminarfavorito/<int:id>', methods=["GET"])
 def eliminarFavorito(id):
-    if "usuario" in session:
+    if session:
         favoritos_controller.delete_favorito(id)
     return redirect(url_for("favoritos"))
 
-@app.route('/agregarfavorito/<int:id>', methods=["GET"])
+@app.route('/agregarfavorito/<int:id>', methods=["GET", "POST"])
 def agregarFavorito(id):
-    if "usuario" in session:
-        favoritos_controller.agregar_favoritos(id)
-    return redirect(url_for("favoritos"))
+    if session:
+        if request.method == 'POST':
+            usuario_id = session["id"]
+            bebida_id = id
+            favoritos_controller.agregar_favoritos(bebida_id, usuario_id)
+            return redirect(url_for("favoritos"))
+    return redirect(url_for("login"))
 
 @app.route('/compra', methods=["GET"])
 def compra():
@@ -172,12 +191,17 @@ def compra():
 
 @app.route('/bebidas', methods=["GET"])
 def getBebidas():
-    if request.method == 'GET':
-        return render_template('bebidas_list.html', row = bebida_controller.get_bebidas())   
+    if session:
+        if request.method == 'GET':
+            if session["super"] == 1 or session["admin"] == 1: 
+                return render_template('bebidas_list.html', row = bebida_controller.get_bebidas())  
+            return redirect(url_for("getMenu"))
+    return redirect(url_for("login"))
+
 
 @app.route('/addBebida', methods=["GET","POST"])
 def agregar_bebida():
-    if "usuario" in session:
+    if session:
         form = BebidaForm()
         if request.method == 'POST':
             nombreBebida = form.nombre.data
@@ -199,13 +223,13 @@ def agregar_bebida():
 
 @app.route('/eliminarbebidas/<int:id>', methods=["GET"])
 def eliminarBebidas(id):
-    if "usuario" in session:
+    if session:
         bebida_controller.delete_bebidas(id)
     return redirect(url_for("getBebidas"))
 
 @app.route('/detalle_plato/<int:id>/', methods=["GET", "POST"])
 def detalle_plato(id):
-    if "usuario" in session:
+    if session:
         # Bebidas
         row = bebida_controller.get_bebida(id)
         # Calificacion por id de bebidas
@@ -226,7 +250,7 @@ def detalle_plato(id):
 
         if request.method == 'POST':
             bebidas_id = id
-            usuario_id = session["usuario"][0]
+            usuario_id = session["id"]
             mensaje = request.form['mensaje']
             created_by = date.today()
             update_by = date.today()

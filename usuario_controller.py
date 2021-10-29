@@ -1,3 +1,4 @@
+import sqlite3
 from flask import Flask
 from sqlite3 import Error
 from db import sqlconnection, get_db, close_db
@@ -32,12 +33,12 @@ def update_usuario(nombre, apellido, email, telefono, direccion, password, creat
 # Funciona
 def get_usuario(id):
     db = sqlconnection()
+    db.row_factory=sqlite3.Row 
     cursor = db.cursor()
-    statement = "SELECT id, nombre, email, estado FROM usuarios WHERE id = ?;"
+    statement = "SELECT * FROM usuarios WHERE id = ?;"
     cursor.execute(statement, [id])
-    cursor.commit()
-    cursor.close()
-    return True
+    
+    return cursor
 
 # Funciona
 def get_validarusuario(email):
@@ -52,9 +53,12 @@ def get_validarusuario(email):
 # Funciona
 def get_login(email):
     try:
-        db = get_db()
+        #db = get_db()
+        db = sqlconnection()
+        db.row_factory=sqlite3.Row 
+        cursor = db.cursor()
         statement = "SELECT * FROM usuarios WHERE email = ?"
-        respuesta = db.execute(statement, [email]).fetchone()
+        respuesta = cursor.execute(statement, [email]).fetchone()
 
         return respuesta
 
@@ -64,6 +68,7 @@ def get_login(email):
 # Funciona  
 def get_usuarios():
     db = sqlconnection()
+    db.row_factory=sqlite3.Row 
     cursor = db.cursor()
     statement = "SELECT * FROM usuarios;"
     cursor.execute(statement)

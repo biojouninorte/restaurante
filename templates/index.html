@@ -100,8 +100,10 @@
 </li><li class="u-nav-item"><a class="u-active-palette-1-base u-border-active-palette-1-base u-border-hover-palette-1-light-1 u-button-style u-hover-palette-1-light-1 u-nav-link u-text-active-white u-text-grey-90 u-text-hover-white" href="{{ url_for('contacto') }}" style="padding: 10px 20px;">contacto</a>
 </li><li class="u-nav-item"><a class="u-active-palette-1-base u-border-active-palette-1-base u-border-hover-palette-1-light-1 u-button-style u-hover-palette-1-light-1 u-nav-link u-text-active-white u-text-grey-90 u-text-hover-white" href="{{ url_for('register') }}" style="padding: 10px 20px;">registro</a>
 
-  {% if session["usuario"] %}
+  {% if session %}
+</li><li class="u-nav-item"><a class="u-active-palette-1-base u-border-active-palette-1-base u-border-hover-palette-1-light-1 u-button-style u-hover-palette-1-light-1 u-nav-link u-text-active-white u-text-grey-90 u-text-hover-white" href="{{ url_for('favoritos') }}" style="padding: 10px 20px;">Favoritos</a>
 </li><li class="u-nav-item"><a class="u-active-palette-1-base u-border-active-palette-1-base u-border-hover-palette-1-light-1 u-button-style u-hover-palette-1-light-1 u-nav-link u-text-active-white u-text-grey-90 u-text-hover-white" href="{{ url_for('logout') }}" style="padding: 10px 20px;">Cerrar sesión</a>
+
 </li><li class="u-nav-item"><a class="u-active-palette-1-base u-border-active-palette-1-base u-border-hover-palette-1-light-1 u-button-style u-hover-palette-1-light-1 u-nav-link u-text-active-white u-text-grey-90 u-text-hover-white" href="{{ url_for('getBebidas') }}" style="padding: 10px 20px;">Dashboard</a>
   {% else %}
 </li><li class="u-nav-item"><a class="u-active-palette-1-base u-border-active-palette-1-base u-border-hover-palette-1-light-1 u-button-style u-hover-palette-1-light-1 u-nav-link u-text-active-white u-text-grey-90 u-text-hover-white" href="{{ url_for('login') }}" style="padding: 10px 20px;">Iniciar sesión</a>
@@ -118,7 +120,8 @@
 </li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="{{ url_for('contacto') }}" style="padding: 10px 20px;">contacto</a>
 </li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="{{ url_for('register') }}" style="padding: 10px 20px;">registro</a>
 
-{% if session["usuario"] %}
+{% if session %}
+</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="{{ url_for('favoritos') }}" style="padding: 10px 20px;">Favoritos</a>
 </li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="{{ url_for('logout') }}" style="padding: 10px 20px;">Cerrar sesión</a>
 </li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="{{ url_for('getBebidas') }}" style="padding: 10px 20px;">Dashboard</a>
 {% else %}
@@ -143,10 +146,7 @@
       <div class="u-clearfix u-sheet u-sheet-1">
         <h6 class="u-text u-text-default u-text-1">Nuestro menú</h6>
         
-        <a class="u-button-style u-nav-link"
-                          href="{{ url_for('getMenu') }}"
-                          style="padding: 10px 20px"
-                          >Ver menú</a>
+        <a class="u-button-style u-nav-link" href="{{ url_for('getMenu') }}" style="padding: 10px 20px">Ver menú</a>
 
         <h2 class="u-custom-font u-font-playfair-display u-text u-text-default u-text-2">Algunas de nuestras bebidas</h2>
         <div class="u-list u-list-1">

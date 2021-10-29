@@ -19,7 +19,7 @@
                     <div class="u-container-layout u-valign-top u-container-layout-1">
                       <div class="u-image u-image-circle u-preserve-proportions u-image-1" alt="" data-image-width="512" data-image-height="512"></div>
                       <p class="u-small-text u-text u-text-variant u-text-1">BIENVENIDO</p>
-                      <p class="u-small-text u-text u-text-variant u-text-2">Nombre usuario</p>
+                      <p class="u-small-text u-text u-text-variant u-text-2">{{session["nombre"]}}</p>
                       <p class="u-small-text u-text u-text-variant u-text-2"><a href="{{ url_for('index') }}">Cerrar sesión</a></p>
                     </div>
                   </div>
@@ -30,17 +30,21 @@
                   <div class="u-container-style u-layout-cell u-size-13 u-layout-cell-2">
                     <div class="u-container-layout u-container-layout-2">
                       <ul class="u-custom-list u-text u-text-default u-text-3">
+
+                        {% if session["super"] == 1 or session["admin"] == 1 %}
                         <li>
                           <div class="u-list-icon">
                             <div xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xml:space="preserve" class="u-svg-content">➤</div>
                           </div>
                           <a href="{{ url_for('getBebidas') }}"> Menú</a>
                         </li>
+                        {% endif %}
+
                         <li>
                           <div class="u-list-icon">
                             <div xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xml:space="preserve" class="u-svg-content">➤</div>
                           </div>
-                          <a href="{{ url_for('getUsuarios') }}"> Usuarios</a>
+                          <a href="{{ url_for('getUsuarios') }}"> Usuarios </a>
                         </li>
                       </ul>
                       
@@ -49,7 +53,11 @@
                   <div class="u-container-style u-layout-cell u-size-47 u-layout-cell-3">
                     <div class="u-container-layout u-valign-top u-container-layout-3">
                       <h3 class="u-text u-text-default u-text-4">Usuarios: Listado de usuarios</h3>
+
+                      {% if session["super"] == 1 or session["admin"] == 1 %}
                       <a class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-1 u-palette-4-dark-2 u-radius-24 u-btn-1" href="{{ url_for('register') }}">Agregar nuevo usuario</a>
+                      {% endif %}
+
                       <div class="u-expanded-width u-table u-table-responsive u-table-1">
                         <table class="u-table-entity">
                           <colgroup>
@@ -63,10 +71,8 @@
                           <thead class="u-align-center u-palette-5-dark-2 u-table-header u-table-header-1">
                             <tr style="height: 27px;">
                               <th class="u-border-1 u-border-grey-dark-1 u-table-cell">Nombre</th>
-                              <th class="u-border-1 u-border-grey-dark-1 u-table-cell">Apellido</th>
                               <th class="u-border-1 u-border-grey-dark-1 u-table-cell">Email</th>
                               <th class="u-border-1 u-border-grey-dark-1 u-table-cell">Rol</th>
-                              <th class="u-border-1 u-border-grey-dark-1 u-table-cell">Bebida Favorita</th>
                               <th class="u-border-1 u-border-grey-dark-1 u-table-cell">Editar</th>
                               <th class="u-border-1 u-border-grey-dark-1 u-table-cell">Eliminar</th>
                             </tr>
@@ -75,30 +81,28 @@
                             {% for user in usuario_list %}
                           
                             <tr style="height: 46px;">
-                              <td class="u-border-1 u-border-grey-dark-1 u-table-cell">{{ user[1] }} </td>
-                              <td class="u-border-1 u-border-grey-dark-1 u-table-cell">{{ user[2] }}</td>
-                              <td class="u-border-1 u-border-grey-dark-1 u-table-cell">{{ user[3] }}</td>
+                              <td class="u-border-1 u-border-grey-dark-1 u-table-cell">{{ user["nombre"] }} {{ user["apellido"] }}</td>
+                              <td class="u-border-1 u-border-grey-dark-1 u-table-cell">{{ user["email"] }}</td>
                               <td class="u-border-1 u-border-grey-dark-1 u-table-cell">
 
-                                {% if (user[7] == 1 or user[7])  %}
+                                {% if (user["superAdmin"] == 1)  %}
                                 Super admin
                                 {% endif %}
 
-                                {% if (user[8] == 1 or user[8]) %}
+                                {% if (user["admin"] == 1) %}
                                 Admin
                                 {% endif %}
 
-                                {% if (user[9] == 1 or user[9]) %}
+                                {% if (user["usuarioFinal"] == 1) %}
                                 Cliente
                                 {% endif %}
 
                               </td>
-                              <td class="u-border-1 u-border-grey-dark-1 u-table-cell">Margarita</td>
                               <td class="u-border-1 u-border-grey-dark-1 u-table-cell">
-                                <a class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-1 u-palette-4-dark-1 u-radius-24 u-btn-1" href="{{ url_for('update_user',id= user[0]) }}">Editar</a>
+                                <a class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-1 u-palette-4-dark-1 u-radius-24 u-btn-1" href="{{ url_for('update_user',id= user["id"]) }}">Editar</a>
                               </td>
                               <td class="u-border-1 u-border-grey-dark-1 u-table-cell">
-                                <a class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-1 u-palette-2-base u-radius-20 u-btn-1" href="{{ url_for('eliminarUsuario', id= user[0]) }}">Eliminar</a>
+                                <a class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-1 u-palette-2-base u-radius-20 u-btn-1" href="{{ url_for('eliminarUsuario', id= user["id"]) }}">Eliminar</a>
                               </td>
                             </tr>
                             {% endfor %}

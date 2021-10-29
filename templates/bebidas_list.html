@@ -23,7 +23,7 @@
                     <div class="u-container-layout u-valign-top u-container-layout-1">
                       <div class="u-image u-image-circle u-preserve-proportions u-image-1" alt="" data-image-width="512" data-image-height="512"></div>
                       <p class="u-small-text u-text u-text-variant u-text-1">BIENVENIDO</p>
-                      <p class="u-small-text u-text u-text-variant u-text-2">{{ session["usuario"][1] }} {{session["usuario"][2]}}</p>
+                      <p class="u-small-text u-text u-text-variant u-text-2">{{session["nombre"]}}</p>
                       <p class="u-small-text u-text u-text-variant u-text-2"><a href="{{ url_for('logout') }}">Cerrar sesión</a></p>
                     </div>
                   </div>
@@ -34,12 +34,16 @@
                   <div class="u-container-style u-layout-cell u-size-13 u-layout-cell-2">
                     <div class="u-container-layout u-container-layout-2">
                       <ul class="u-custom-list u-text u-text-default u-text-3">
+
+                        {% if session["super"] == 1 or session["admin"] == 1 %}
                         <li>
                           <div class="u-list-icon">
                             <div xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xml:space="preserve" class="u-svg-content">➤</div>
                           </div>
                           <a href="{{ url_for('getBebidas') }}"> Menú</a>
                         </li>
+                        {% endif %}
+
                         <li>
                           <div class="u-list-icon">
                             <div xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" xml:space="preserve" class="u-svg-content">➤</div>
@@ -52,7 +56,11 @@
                   <div class="u-container-style u-layout-cell u-size-47 u-layout-cell-3">
                     <div class="u-container-layout u-valign-top u-container-layout-3">
                       <h3 class="u-text u-text-default u-text-4">Menú: Listado de bebidas</h3>
+
+                      {% if session["super"] == 1 or session["admin"] == 1 %}
                       <a class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-1 u-palette-4-dark-2 u-radius-24 u-btn-1" href="{{ url_for('agregar_bebida') }}">Agregar bebida al menú</a>
+                      {% endif %}
+
                       <div class="u-expanded-width u-table u-table-responsive u-table-1">
                         <table class="u-table-entity">
                           <colgroup>
