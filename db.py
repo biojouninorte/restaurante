@@ -5,7 +5,7 @@ from flask import g
 database = "restaurante.db"
 
 def sqlconnection():
-    conn = sqlite3.connect(database)
+    conn = sqlite3.connect(database,timeout=10)
     return conn
 
 
@@ -15,7 +15,7 @@ def get_db():
     try:
         
         if 'db' not in g:
-            db = sqlite3.connect('restaurante.db')
+            db = sqlite3.connect('restaurante.db',timeout=10)
         return db
 
     except Error:

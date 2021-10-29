@@ -15,7 +15,7 @@ def insert_bebida(nombreBebida, descripcion, precio, estado, created_by, updated
     except Error as err:
         print(err)
 
-# No probada
+# Funciona
 def update_bebida(nombre, precio):
     db = sqlconnection()
     cursor = db.cursor()

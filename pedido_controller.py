@@ -15,3 +15,12 @@ def insert_pedido(usuario_id, bebida_id, valor, direccion, created_by, updated_b
     except Error as err:
         print(err)
 
+# Funciona
+def get_pedidos():
+    db = sqlconnection()
+    db.row_factory=sqlite3.Row # Convierte la respuesta de la BD en un diccionario
+    cur = db.cursor()  #manipular la conxion de la BD
+    cur.execute('SELECT * FROM pedidos;')
+    row = cur.fetchall()
+    return row
+

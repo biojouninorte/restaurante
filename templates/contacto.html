@@ -5,6 +5,7 @@
 
 {% block style %}
     <link rel="stylesheet" href="../static/style/contacto.css" media="screen">
+    <script src="{{ url_for('static', filename='js/biojoe.js') }}"></script>
 {% endblock style %}
 
 {% block content %}
@@ -16,10 +17,10 @@
               <div class="u-container-style u-grey-5 u-layout-cell u-right-cell u-shape-rectangle u-size-33 u-layout-cell-1">
                 <div class="u-container-layout u-valign-middle u-container-layout-1">
                   <div class="u-expanded-width u-form u-form-1">
-                    <form action="#" method="POST" class="u-clearfix u-form-spacing-19 u-form-vertical u-inner-form" style="padding: 0;" source="custom" name="form">
+                    <form action="" method="POST" source="custom" name="formContacto" class="u-clearfix u-form-custom-backend u-form-spacing-15 u-form-vertical u-inner-form" style="padding: 0px;" onSubmit="validar_formulario();">
                       <div class="u-form-group u-form-name u-form-group-1">
                         <label for="name-daf4" class="u-form-control-hidden u-label">Nombre</label>
-                        <input type="text" placeholder="Nombre" id="name-daf4" name="name" class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle" required="">
+                        <input type="text" placeholder="Nombre" id="name-daf4" name="nombre" class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle" required="">
                       </div>
                       <div class="u-form-email u-form-group u-form-group-2">
                         <label for="email-daf4" class="u-form-control-hidden u-label">Correo Electrónico</label>
@@ -27,19 +28,15 @@
                       </div>
                       <div class="u-form-group u-form-phone u-form-group-3">
                         <label for="phone-42da" class="u-form-control-hidden u-label"></label>
-                        <input type="tel" pattern="[0-9]{10}" placeholder="Teléfono/Celular" id="phone-42da" name="phone" class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle" required="">
+                        <input type="tel" pattern="[0-9]{10}" placeholder="Teléfono/Celular" id="phone-42da" name="telefono" class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle" required="">
                       </div>
                       <div class="u-form-group u-form-message u-form-group-4">
                         <label for="message-daf4" class="u-form-control-hidden u-label">Mensaje</label>
-                        <textarea placeholder="" rows="4" cols="50" id="message-daf4" name="message" class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle" required=""></textarea>
+                        <textarea placeholder="" rows="4" cols="50" id="message-daf4" name="mensaje" class="u-border-2 u-border-grey-50 u-border-no-left u-border-no-right u-border-no-top u-input u-input-rectangle" required=""></textarea>
                       </div>
                       <div class="u-align-left u-form-group u-form-submit u-form-group-5">
-                        <a href="#" class="u-active-grey-70 u-border-none u-btn u-btn-round u-btn-submit u-button-style u-hover-grey-70 u-palette-2-base u-radius-2 u-btn-1">Enviar</a>
-                        <input type="submit" value="submit" class="u-form-control-hidden">
+                        <button class="u-active-grey-70 u-border-none u-btn u-btn-round u-btn-submit u-button-style u-hover-grey-70 u-palette-2-base u-radius-2 u-btn-1">Enviar</button>
                       </div>
-                      <div class="u-form-send-message u-form-send-success"> Gracias! tu mensaje fue enviado. </div>
-                      <div class="u-form-send-error u-form-send-message"> No se pudo enviar el mensaje. Por favor corregir los errores y volver a intentarlo. </div>
-                      <input type="hidden" value="" name="recaptchaResponse">
                     </form>
                   </div>
                 </div>

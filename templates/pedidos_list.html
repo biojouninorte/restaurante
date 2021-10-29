@@ -1,10 +1,10 @@
 {% extends "index.html" %}
 
 
-{% block title %} Lista de usuarios {% endblock title %}
+{% block title %} Lista de pedidos {% endblock title %}
 
 {% block style %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='style/usuarios_list.css') }}" media="screen">
+    <link rel="stylesheet" href="../static/style/usuarios_list.css" media="screen">
 {% endblock style %}
 
 {% block content %}
@@ -59,12 +59,8 @@
                   </div>
                   <div class="u-container-style u-layout-cell u-size-47 u-layout-cell-3">
                     <div class="u-container-layout u-valign-top u-container-layout-3">
-                      <h3 class="u-text u-text-default u-text-4">Usuarios: Listado de usuarios</h3>
-
-                      {% if session["super"] == 1 or session["admin"] == 1 %}
-                      <a class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-1 u-palette-4-dark-2 u-radius-24 u-btn-1" href="{{ url_for('register') }}">Agregar nuevo usuario</a>
-                      {% endif %}
-
+                      <h3 class="u-text u-text-default u-text-4">Listado de Pedidos</h3>
+                        
                       <div class="u-expanded-width u-table u-table-responsive u-table-1">
                         <table class="u-table-entity">
                           <colgroup>
@@ -77,42 +73,39 @@
                           </colgroup>
                           <thead class="u-align-center u-palette-5-dark-2 u-table-header u-table-header-1">
                             <tr style="height: 27px;">
-                              <th class="u-border-1 u-border-grey-dark-1 u-table-cell">Nombre</th>
-                              <th class="u-border-1 u-border-grey-dark-1 u-table-cell">Email</th>
-                              <th class="u-border-1 u-border-grey-dark-1 u-table-cell">Rol</th>
-                              <th class="u-border-1 u-border-grey-dark-1 u-table-cell">Editar</th>
-                              <th class="u-border-1 u-border-grey-dark-1 u-table-cell">Eliminar</th>
+                              <th class="u-border-1 u-border-grey-dark-1 u-table-cell">No.</th>
+                              <th class="u-border-1 u-border-grey-dark-1 u-table-cell">usuario</th>
+                              <th class="u-border-1 u-border-grey-dark-1 u-table-cell">Bebida</th>
+                              <th class="u-border-1 u-border-grey-dark-1 u-table-cell">direccion</th>
+                              <th class="u-border-1 u-border-grey-dark-1 u-table-cell">Total</th>
                             </tr>
                           </thead>
                           <tbody class="u-table-body">
-                            {% for user in usuario_list %}
-                          
+                            {% for r in pedidos %}
                             <tr style="height: 46px;">
-                              <td class="u-border-1 u-border-grey-dark-1 u-table-cell">{{ user["nombre"] }} {{ user["apellido"] }}</td>
-                              <td class="u-border-1 u-border-grey-dark-1 u-table-cell">{{ user["email"] }}</td>
+                            <td class="u-border-1 u-border-grey-dark-1 u-table-cell">{{ r["id"] }}</td>
+
                               <td class="u-border-1 u-border-grey-dark-1 u-table-cell">
-
-                                {% if (user["superAdmin"] == 1)  %}
-                                Super admin
+                                {% for u in usuarios %}
+                                {% if r["usuario_id"] == u["id"] %}
+                                {{u["nombre"]}} {{u["apellido"]}}
                                 {% endif %}
-
-                                {% if (user["admin"] == 1) %}
-                                Admin
-                                {% endif %}
-
-                                {% if (user["usuarioFinal"] == 1) %}
-                                Cliente
-                                {% endif %}
-
+                                {% endfor %}
                               </td>
+                              
                               <td class="u-border-1 u-border-grey-dark-1 u-table-cell">
-                                <a class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-1 u-palette-4-dark-1 u-radius-24 u-btn-1" href="{{ url_for('update_user',id= user["id"]) }}">Editar</a>
+                                {% for b in bebidas %}
+                                {% if r["bebida_id"] == b["id"] %}
+                                {{b["nombreBebida"]}}
+                                {% endif %}
+                                {% endfor %}
                               </td>
-                              <td class="u-border-1 u-border-grey-dark-1 u-table-cell">
-                                <a class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-dark-1 u-palette-2-base u-radius-20 u-btn-1" href="{{ url_for('eliminarUsuario', id= user["id"]) }}">Eliminar</a>
-                              </td>
+                              <td class="u-border-1 u-border-grey-dark-1 u-table-cell">{{ r["direccion"] }}</td>
+                              <td class="u-border-1 u-border-grey-dark-1 u-table-cell">COP {{ r["valor"] }}</td>
+                              
                             </tr>
                             {% endfor %}
+
                           </tbody>
                         </table>
                       </div>
