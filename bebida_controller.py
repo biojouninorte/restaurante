@@ -103,3 +103,13 @@ def get_comentarios():
     row = cur.fetchall()
   
     return row
+
+def get_bebidapedido(id):
+    db = sqlconnection()
+    db.row_factory=sqlite3.Row
+    cur = db.cursor()
+    statement = "SELECT * FROM bebidas WHERE id = ?;"
+    cur.execute(statement, [id])
+    row = cur.fetchone()
+    
+    return row

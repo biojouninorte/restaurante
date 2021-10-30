@@ -216,7 +216,7 @@ def compra():
         listado = []
         for id in session["bebida"]:
             dict_pedido = {}
-            row = bebida_controller.get_bebida(id)
+            row = bebida_controller.get_bebidapedido(id)
             
             dict_pedido["id"] = row["id"]
             dict_pedido["nombre"] = row["nombreBebida"]
