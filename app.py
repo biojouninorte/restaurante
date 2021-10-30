@@ -1,7 +1,7 @@
 import os
 import sqlite3
 import smtplib
-from decouple import config as config_decouple
+#from decouple import config as config_decouple
 import pandas as pd
 from datetime import datetime, date
 from flask import Flask, url_for, request, render_template, flash, jsonify, redirect, session
@@ -17,8 +17,8 @@ import favoritos_controller
 from formulario import BebidaForm
 
 app = Flask(__name__)
-PORT = 5000
-DEBUG = False
+#PORT = 5000
+#DEBUG = False
 app.secret_key=os.urandom(24)
 
 
@@ -323,7 +323,6 @@ def update_bebida(id):
             return render_template('bebida_update_form.html', row = bebida_controller.get_bebida(id))
     return redirect(url_for("login"))
 
-
 @app.route('/detalle_plato/<int:id>/', methods=["GET", "POST"])
 def detalle_plato(id):
     if session:
@@ -366,7 +365,7 @@ def calificarBebida(bebida_id, calificacion):
     return True
 
 if __name__ =='__main__':
-    app.run(debug=DEBUG)
+    app.run(debug=True)
 
 
 ##

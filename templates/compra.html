@@ -48,7 +48,7 @@
               <h4 class="u-text u-text-default u-text-21">Dirección:</h4>
               <h4 class="u-text u-text-default u-text-22">{{session["direccion"]}}</h4>
               
-              <h4 class="u-text u-text-default u-text-23"><a href="{{ url_for('update_user') }}" class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-4-base u-radius-50 u-btn-3">Editar detalle</a>
+              <h4 class="u-text u-text-default u-text-23"><a href="{{ url_for('update_user', id=session["id"]) }}" class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-4-base u-radius-50 u-btn-3">Editar detalle</a>
               </h4>
               <h4 class="u-text u-text-default u-text-23">
               <button onclick="alert('pedido exitoso')" class="u-border-none u-btn u-btn-round u-button-style u-hover-palette-1-light-1 u-palette-4-base u-radius-50 u-btn-5">CONFIRMAR COMPRA</button>

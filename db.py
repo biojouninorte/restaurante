@@ -5,7 +5,7 @@ from flask import g
 database = "restaurante.db"
 
 def sqlconnection():
-    conn = sqlite3.connect(database,timeout=10)
+    conn = sqlite3.connect(database)
     return conn
 
 

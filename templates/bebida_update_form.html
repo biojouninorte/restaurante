@@ -4,8 +4,7 @@
 {% block title %} Editar bebida {% endblock title %}
 
 {% block style %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='style/usuario_update_form.css') }}" media="screen">
-    <script src="{{ url_for('static', filename='js/biojoe.js') }}"></script>    
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/usuario_update_form.css') }}" media="screen">    
 {% endblock style %}
 
 {% block content %}
@@ -60,7 +59,7 @@
                       <h3 class="u-text u-text-default u-text-4">Editar bebida</h3>
                       <div class="u-form u-form-1">
                         {% for r in row %}
-                        <form method="POST" source="custom" class="u-clearfix u-form-custom-backend u-form-spacing-15 u-form-vertical u-inner-form" name="formUpdateB" style="padding: 10px;" onSubmit="validar_formulario();">
+                        <form method="POST" source="custom" class="u-clearfix u-form-custom-backend u-form-spacing-15 u-form-vertical u-inner-form" name="formUpdateB" style="padding: 10px;">
                           <div class="u-form-group u-form-name u-form-group-1">
                             <label for="name-b527" class="u-form-control-hidden u-label"></label>
                             <input type="text" placeholder="Nombre bebida" id="name-b527" name="nombre" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" value="{{ r ["nombreBebida"] }}">
